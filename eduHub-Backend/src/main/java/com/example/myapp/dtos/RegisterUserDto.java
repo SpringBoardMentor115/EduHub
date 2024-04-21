@@ -3,7 +3,7 @@ package com.example.myapp.dtos;
 public class RegisterUserDto {
     private String email;
     private String password;
-    private String fullName;
+    private String userName;
 
     public String getEmail() {
         return email;
@@ -23,21 +23,22 @@ public class RegisterUserDto {
         return this;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUserName() {
+        return userName;
     }
 
-    public RegisterUserDto setFullName(String fullName) {
-        this.fullName = fullName;
+    public RegisterUserDto setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
+    
 
     @Override
     public String toString() {
         return "RegisterUserDto{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", fullName='" + fullName + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }

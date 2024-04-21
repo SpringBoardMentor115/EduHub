@@ -16,12 +16,12 @@ public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
 
     @Column(nullable = false)
-    private String fullName;
+    private String userName;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -73,12 +73,12 @@ public class User implements UserDetails {
         return this;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUserName() {
+        return userName;
     }
 
-    public User setFullName(String fullName) {
-        this.fullName = fullName;
+    public User setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 
@@ -101,7 +101,7 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", fullName='" + fullName + '\'' +
+                ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';

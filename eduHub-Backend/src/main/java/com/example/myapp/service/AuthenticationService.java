@@ -30,7 +30,7 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         var user = new User()
-            .setFullName(input.getFullName())
+            .setUserName(input.getUserName())
             .setEmail(input.getEmail())
             .setPassword(passwordEncoder.encode(input.getPassword()));
 

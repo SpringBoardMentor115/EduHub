@@ -37,7 +37,7 @@ public class UserService {
                 .orElseThrow();
 
         // Update user details
-        user.setFullName(userDetails.getFullName());
+        user.setUserName(userDetails.getUserName());
         user.setEmail(userDetails.getEmail());
         user.setPassword(userDetails.getPassword());
 
