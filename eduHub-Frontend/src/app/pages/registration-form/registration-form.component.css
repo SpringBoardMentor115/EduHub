@@ -1,0 +1,39 @@
+.blur-background {
+  background-image: url('/assets/bg_background.png');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(10px);
+  height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.register-form {
+  margin-top:12vh;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  border-radius: 5px;
+}
+
+.btn-primary {
+  border-radius: 5px;
+}
+
+.text-danger {
+  font-size: 0.9em;
+  color: red; /* Added color red for consistency */
+}
+
+.btn-link {
+  font-weight: bold;
+}
+
+.login-forms h1 {
+  font-size: 2em;
+}

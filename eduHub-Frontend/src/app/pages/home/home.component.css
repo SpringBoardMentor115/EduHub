@@ -1,0 +1,52 @@
+.home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: url(/assets/home.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.home::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -1; 
+}
+.border{
+    margin-left: 1rem;
+    
+
+}
+
+.home .content {
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    max-width: 50rem;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0 0 2rem rgb(247, 1, 1);
+    justify-content: center;
+    display: inline;
+    /* text-align: center; */
+}
+.learnmore{
+    /* display: flex; */
+    justify-content: center;
+}
+.home .content h3 {
+    font-size: 3.5rem; /* Decreased font size for better readability */
+    line-height: 1.2;
+}
+
+.home .content p {
+    font-size: 1.7rem; /* Increased font size for better readability */
+    line-height: 2;
+    padding: 1rem 0;
+}

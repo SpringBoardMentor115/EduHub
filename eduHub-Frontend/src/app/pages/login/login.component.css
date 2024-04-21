@@ -1,0 +1,85 @@
+.login-form {
+  margin-top: 12vh;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(100px);
+  padding: 20px;
+}
+.blur-background {
+  background-image: url('/assets/bg_background.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.login-forms h1{
+  font-size: 2.5rem;
+}
+.form-control {
+  border-radius: 5px;
+}
+
+.text-danger {
+  color: red;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-primary {
+  border-radius: 5px;
+}
+
+/* Hide the radio buttons */
+.login-form input[type="radio"] {
+  display: none;
+}
+
+/* Style the labels to create toggle buttons */
+.login-form input[type="radio"] + label {
+  display: inline-block;
+  background-color: #f8f9fa; 
+  color: #212529;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Style for the checked state of the toggle buttons */
+.login-form input[type="radio"]:checked + label {
+  background-color: #007bff; 
+  color: #fff; 
+}
+
+/* Additional styles for the toggle buttons */
+.login-form input[type="radio"] + label::before {
+  font-family: 'Font Awesome'; 
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #ccc; 
+  border-radius: 50%; 
+  margin-right: 10px; 
+}
+
+/* Style for the checked state of the toggle button icon */
+.login-form input[type="radio"]:checked + label::before {
+  color: #fff;
+}
+
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

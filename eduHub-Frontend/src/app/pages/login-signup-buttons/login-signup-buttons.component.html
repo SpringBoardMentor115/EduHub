@@ -1,0 +1,6 @@
+<div class="container">
+  <div class="loginandsignup text-center ">
+    <button type="button" id="loginButton" class="btn btn-primary " (click)="login.emit()" [class.active]="activeButton === 'login'">Login</button>
+    <button type="button" id="signupButton" class="btn btn-primary" (click)="signup.emit()" [class.active]="activeButton === 'registration-form'">Sign Up</button>
+  </div>
+</div>

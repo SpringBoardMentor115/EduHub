@@ -1,0 +1,14 @@
+.app-component{
+    background: rgba(156, 255, 8, 0.483);
+}
+
+.main{
+    /* display: flex; */
+    justify-content: space-between;
+    background-color: blanchedalmond;
+    
+}
+
+.main .container{
+    background: yellow;
+}
