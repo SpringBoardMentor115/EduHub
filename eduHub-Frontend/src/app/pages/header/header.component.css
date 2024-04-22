@@ -1,19 +1,18 @@
 
 
-.container img {
-  width: 10%;
-  height: 10%;
+.container-fluid img {
+  margin-left: 10%;
   object-fit: cover;
 
 }
 
 .container-fluid{
-  /* margin:0 0 0 5vh;? */
+  margin-right: 4rem;
   display: flex;
   justify-content: space-between;
-  /* place-content: center; */
-  /* background: #000; */
+
 }
+
 .header .logo {
   font-size: 2.5rem;
   font-weight: bolder;
@@ -87,4 +86,38 @@
 
 .fa-user {
   margin-right: 0.5rem;
+} 
+
+@media (max-width: 768px) {
+  .header .logo {
+    font-size: 2rem;
+  }
+
+  .header .navbar a {
+    font-size: 1.5rem;
+  }
+
+  .login {
+    margin: 0.5rem 1rem 0 0;
+  }
+  .navbar{
+    margin-right:-5%;
+    justify-content: center;
+    background: yellow;
+  }
+  #navbarNav{
+    padding-left: 5rem;
+
+  
+  }
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    margin-right: -5%;
+    padding-right: -5%;
+  }
+
+
+
+
 }

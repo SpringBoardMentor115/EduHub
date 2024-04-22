@@ -4,9 +4,7 @@
   background-position: center;
   backdrop-filter: blur(10px);
   height: 100vh;
-  /* display: flex; */
   justify-content: center;
-  /* align-items: center; */
 }
 
 .register-form {

@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    background: url(/assets/home.jpg) no-repeat;
+    background-image: url(/assets/home.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -15,38 +15,82 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: -1; 
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1; 
 }
-.border{
+
+.border {
     margin-left: 1rem;
-    
-
 }
 
-.home .content {
-    justify-content: center;
+.content {
     position: relative;
-    z-index: 2;
+    z-index: 2; 
     max-width: 50rem;
     color: #ffffff;
     font-weight: bold;
-    text-shadow: 0 0 2rem rgb(247, 1, 1);
-    justify-content: center;
+    text-shadow: 0 0 2rem rgb(1, 17, 247);
     display: inline;
-    /* text-align: center; */
+    /* background: #000; */
 }
-.learnmore{
-    /* display: flex; */
+
+.content .btn.btn-success {
+    align-items: center;
+    width: 20vh;
+    height: 5vh;
     justify-content: center;
+    place-content: center;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    place-items: center;
+    background: linear-gradient(120deg, #0d5acd, #47e10a);
+    transition: all .9s ease; 
 }
+
+.content .btn.btn-success:hover {
+    background: linear-gradient(150deg, #47e10a, #0d5acd);
+    transition: all .5s ease-in-out; 
+    animation-timing-function: ease-in-out;
+    transition-timing-function: 0.7 cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 .home .content h3 {
-    font-size: 3.5rem; /* Decreased font size for better readability */
+    font-size: 3.2rem; 
     line-height: 1.2;
 }
 
 .home .content p {
-    font-size: 1.7rem; /* Increased font size for better readability */
+    font-size: 1.56rem; 
     line-height: 2;
     padding: 1rem 0;
+}
+
+@media (min-width:768px)  and (max-width: 992px) {
+    .home .content h3 {
+        font-size: 2.8rem; 
+    }
+    .container-fluid .row{
+        justify-content: center;
+    }
+    .border{
+        margin:0 0 1rem 0;
+        min-width: 100vh;
+    }
+    
+}
+@media screen and (max-width: 767px) {
+    .home{
+        background-size: fit-content;
+        background-repeat: no-repeat;
+    }
+    .home .content h3 {
+        margin-top:15vh;
+        font-size: 2.5rem    
+    }
+
+    .border{
+        margin:-50% 0 1rem 0;
+    }
+    
 }

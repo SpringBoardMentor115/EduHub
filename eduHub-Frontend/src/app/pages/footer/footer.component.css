@@ -1,61 +1,81 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.footer{
+    background-color: rgba(24, 24, 87, 0.808);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+.container-fluid .row{
+    display: flex;
+    justify-content: space-around;
 
-.footer .box h3 {
-  font-size: 2.2rem;
-  color: var(--primary-color);
-  padding: 1rem 0;
+  }
+  .container-fluid{
+  padding: 1rem 10%;
+
+}
+.box h3{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(255, 217, 0); 
+}
+.box p{
+  margin-top: -0.5rem;
+    font-size: 1.2rem;
+    color: white;
+    line-height: 2;
+}
+.credit{
+    font-size: 1.5rem;
+    color: white;
+    
+}
+
+@media screen and (max-width: 768px){
+
+  .container-fluid {
+    padding: 1rem 5%;
+  }
+  .box h3 {
+    font-size: 1.2rem;
+  }
+  .box p {
+    font-size: 1rem;
+  }
+  .credit {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 576px){
+  .container-fluid {
+    padding: 1rem 2%;
+  }
+
+    
+  .col-sm-5 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .box h3 {
+    font-size: 1rem;
+  }
+  .box p {
+    font-size: 0.8rem;
+  }
+  .credit {
+    font-size: 1rem;
+  }
   
 }
 
-.footer .box p {
-  font-size: 1rem;
-  color: var(--white);
-  line-height: 2;
-  padding: 1rem 0;
-}
-
-.footer .box .share {
-  margin-top: 1rem;
-}
-
-.footer .box .share a {
-  height: 4.5rem;
-  width: 4.5rem;
-  line-height: 4.5rem;
-  border-radius: 10%;
-  font-size: 1.7rem;
-  border: .1rem solid var(--primary-color);
-  color: var(--primary-color);
-  margin-right: .3rem;
-  text-align: center;
-}
-
-.footer .box .share a:hover {
-  background: var(--primary-color);
-  color: var(--white);
-}
-
-.footer .box .link {
-  font-size: 1.7rem;
-  line-height: 2;
-  color: var(--white);
-  padding: .5rem 0;
-  display: block;
-}
-
-.footer .box .link:hover {
-  color: var(--primary-color);
-  text-decoration: underline;
-}
-
-.footer .credit {
-  font-size: 2rem;
-  margin-top: 3rem;
-  padding-top: 3rem;
-  text-align: center;
-  color: var(--white);
-  border-top: .1rem solid var(--primary-color);
-}
-
-.footer .credit span {
-  color: var(--primary-color);
-}
+  
