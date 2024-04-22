@@ -38,4 +38,6 @@
 
 .loginandsignup {
   margin: -1.1rem -3rem 0 -3rem;
+  justify-content: center;
+  display: flex;
 }
