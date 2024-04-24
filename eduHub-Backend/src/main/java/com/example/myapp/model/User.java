@@ -1,5 +1,4 @@
-package com.example.myapp.entities;
-
+package com.example.myapp.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,15 +9,13 @@ import java.util.List;
 @Table(name = "users")
 @Entity
 public class User implements UserDetails {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	@Id
+    private static final long serialVersionUID = 1L;
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Integer id;
+    private Integer userID;
 
     @Column(nullable = false)
     private String userName;
@@ -29,12 +26,23 @@ public class User implements UserDetails {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String password;
 
+    @Transient
+    private String message;
+
+    @Transient
+    private String token;
+    
+    @Transient
+    private long expiresIn;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
 
+    // Getter and Setter methods for the fields
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -65,11 +73,11 @@ public class User implements UserDetails {
     }
 
     public Integer getId() {
-        return id;
+        return userID;
     }
 
-    public User setId(Integer id) {
-        this.id = id;
+    public User setId(Integer userID) {
+        this.userID = userID;
         return this;
     }
 
@@ -96,11 +104,36 @@ public class User implements UserDetails {
         return this;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public User setToken(String token) {
+        this.token = token;
+        return this;
+    }
+
+    public long getExpiresIn() {
+        return expiresIn;
+    }
+
+    public User setExpiresIn(long expiresIn) {
+        this.expiresIn = expiresIn;
+        return this;
+    }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userID=" + userID +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

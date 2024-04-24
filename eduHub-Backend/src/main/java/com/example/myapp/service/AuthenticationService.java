@@ -1,8 +1,6 @@
 package com.example.myapp.service;
 
-import com.example.myapp.dtos.LoginUserDto;
-import com.example.myapp.dtos.RegisterUserDto;
-import com.example.myapp.entities.User;
+import com.example.myapp.model.User;
 import com.example.myapp.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +26,7 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signup(RegisterUserDto input) {
+    public User signup(User input) {
         var user = new User()
             .setUserName(input.getUserName())
             .setEmail(input.getEmail())
@@ -37,7 +35,7 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public User authenticate(LoginUserDto input) {
+    public User authenticate(User input) {
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 input.getEmail(),

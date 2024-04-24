@@ -1,10 +1,8 @@
 package com.example.myapp.controller;
 
-import com.example.myapp.entities.User;
-import com.example.myapp.dtos.LoginUserDto;
-import com.example.myapp.dtos.RegisterUserDto;
-import com.example.myapp.responses.LoginResponse;
-import com.example.myapp.responses.SignupResponseDto;
+import com.example.myapp.model.User;
+//import com.example.myapp.responses.LoginResponse;
+//import com.example.myapp.responses.SignupResponse;
 import com.example.myapp.service.AuthenticationService;
 import com.example.myapp.service.JwtService;
 import com.example.myapp.service.UserService;
@@ -36,34 +34,37 @@ public class AuthenticationController {
   
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponseDto> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<User> register(@RequestBody User registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
-        
-        // Create a response DTO with only necessary information
-        SignupResponseDto responseDto = new SignupResponseDto();
-        responseDto.setUserName(registeredUser.getUserName());
-        responseDto.setEmail(registeredUser.getEmail());
-        responseDto.setMessage("User registered successfully");
+  
+        User response = new User();
+        response.setUserName(registeredUser.getUserName());
+        response.setEmail(registeredUser.getEmail());
+        response.setMessage("User registered successfully");
 
-        return ResponseEntity.ok(responseDto);
+        return ResponseEntity.ok(response);
     }
     
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<User> authenticate(@RequestBody User loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+        User response = new User().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
 
-        return ResponseEntity.ok(loginResponse);
+        return ResponseEntity.ok(response);
     }
     
     @PostMapping("/reset-password")
     public ResponseEntity<Map<String, String>> resetPassword(@RequestBody Map<String, String> resetRequest) {
         String email = resetRequest.get("email");
         String newPassword = resetRequest.get("newPassword");
+
+        if (email == null || newPassword == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email or newPassword is missing"));
+        }
 
         boolean resetSuccessful = userService.resetPassword(email, newPassword);
         if (resetSuccessful) {
@@ -72,5 +73,6 @@ public class AuthenticationController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
     }
+
 
 }
