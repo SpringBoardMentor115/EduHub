@@ -18,7 +18,7 @@ public class User implements UserDetails {
     private Integer userID;
 
     @Column(nullable = false)
-    private String userName;
+    private String username;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -82,11 +82,11 @@ public class User implements UserDetails {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
-    public User setUserName(String userName) {
-        this.userName = userName;
+    public User setUserName(String username) {
+        this.username = username;
         return this;
     }
 
@@ -133,10 +133,10 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userID +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                "UserID=" + userID +
+                ", Username='" + username + '\'' +
+                ", Email='" + email + '\'' +
+                ", Password='" + password + '\'' +
                 '}';
     }
 }

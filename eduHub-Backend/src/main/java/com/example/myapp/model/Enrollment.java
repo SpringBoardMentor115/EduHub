@@ -22,21 +22,21 @@ public class Enrollment {
     @Column(name = "EnrollmentId")
     private Long enrollmentId;
 
-    @Column(name = "userID")
+    @Column(name = "UserID")
     private Integer userId;
 
-    @Column(name = "courseID")
+    @Column(name = "CourseID")
     private Long courseId;
 
     @Column(name = "EnrollmentDate")
     private Date enrollmentDate;
 
     @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Enrollment_User"))
+    @JoinColumn(name = "UserID", referencedColumnName = "UserID", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Enrollment_User"))
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "courseID", referencedColumnName = "courseID", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Enrollment_Course"))
+    @JoinColumn(name = "CourseID", referencedColumnName = "CourseID", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Enrollment_Course"))
     private Course course;
 
     public Enrollment(Integer userId, Long courseId, Date enrollmentDate) {
