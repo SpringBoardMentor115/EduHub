@@ -25,9 +25,10 @@ public class CourseContent {
     private String contentURl;
 
     @ManyToOne
-    @JoinColumn(name = "CourseID", nullable = false, referencedColumnName = "CourseID", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Enrollment_Course"))
+    @JoinColumn(name = "CourseID", nullable = false, referencedColumnName = "CourseID", insertable = false, updatable = false)
     @JsonBackReference
     private Course course;
+
 
     public CourseContent() {
         // default constructor
