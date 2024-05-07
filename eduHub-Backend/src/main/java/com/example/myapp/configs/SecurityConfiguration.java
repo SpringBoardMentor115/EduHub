@@ -27,22 +27,39 @@ public class SecurityConfiguration {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
   
+//    @Bean
+//    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity
+//                .cors(AbstractHttpConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable) 
+//                .authorizeHttpRequests(req  -> req
+//                        .requestMatchers("/auth/**")
+//                        .permitAll()
+//                        .anyRequest()
+//                        .authenticated()
+//
+//                )
+//                .sessionManagement(session  -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//        return httpSecurity.build();
+//    }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable) 
+                .cors()
+                .and()
+                .csrf().disable()
                 .authorizeHttpRequests(req  -> req
                         .requestMatchers("/auth/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
-
                 )
                 .sessionManagement(session  -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
+
     
 
     @Bean
