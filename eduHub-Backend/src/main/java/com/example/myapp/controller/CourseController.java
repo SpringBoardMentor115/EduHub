@@ -15,7 +15,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/auth")
 public class CourseController {
    
     private CourseService courseService;

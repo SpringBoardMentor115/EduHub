@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @CrossOrigin("*")
-@RequestMapping("/courseContent")
+@RequestMapping("/auth")
 @RestController
 public class CourseContentController {
 
@@ -22,7 +22,7 @@ public class CourseContentController {
         this.service = service;
     }
 
-    @GetMapping("/{courseId}")
+    @GetMapping("/course-content/{courseId}")
     public List<CourseContent> getCourseContentByCourseId(@PathVariable Long courseId) {
         return service.getCourseContentByCourseId(courseId);
     }
