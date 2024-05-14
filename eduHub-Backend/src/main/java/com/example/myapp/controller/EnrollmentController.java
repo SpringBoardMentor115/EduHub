@@ -67,11 +67,19 @@ public class EnrollmentController {
         return ResponseEntity.ok(Map.of("message", "Unsubscribed successfully"));
     }
 
+//    @GetMapping("/get-enrolled-courses")
+//    public ResponseEntity<List<Course>> getEnrolledCoursesByUserId() {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Integer userId = user.getId();
+//        List<Course> enrolledCourses = enrollmentService.getEnrolledActiveCoursesByUserId(userId);
+//        return ResponseEntity.ok(enrolledCourses);
+//    }
+    
     @GetMapping("/get-enrolled-courses")
-    public ResponseEntity<List<Course>> getEnrolledCoursesByUserId() {
+    public ResponseEntity<List<Enrollment>> getEnrolledCoursesByUserId() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer userId = user.getId();
-        List<Course> enrolledCourses = enrollmentService.getEnrolledActiveCoursesByUserId(userId);
+        List<Enrollment> enrolledCourses = enrollmentService.getEnrolledActiveCourses(userId);
         return ResponseEntity.ok(enrolledCourses);
     }
 
