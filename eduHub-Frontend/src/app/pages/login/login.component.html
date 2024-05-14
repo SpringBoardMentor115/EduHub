@@ -7,6 +7,10 @@
           <div *ngIf="formState === 'login'">
             <h1 class="text-center mb-4 mt-3">Login</h1>
             <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="shadow p-3 mb-3 bg-white rounded">
+              <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                {{ errorMessage }}
+              </div>
+              
               <div class="mb-3">
                 <label  for="email" class="form-label">Email</label>
                 <input  type="email" id="email" formControlName="email" class="form-control">
@@ -40,7 +44,6 @@
                 <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
                 <!-- <span *ngIf="resetPasswordForm.controls['confirmPassword'].errors?.['passwordMismatch']" class="text-danger">Passwords do not match</span> -->
                 <span *ngIf="!passwordsMatch() && confirmPassword?.touched" class="text-danger">Passwords must match</span>
-
               </div>
               <button type="submit" [disabled]="resetPasswordForm.invalid" class="btn btn-primary">Reset Password</button>
             </form>

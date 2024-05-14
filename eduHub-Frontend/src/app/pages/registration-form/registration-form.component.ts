@@ -23,6 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class RegistrationFormComponent implements OnInit {
   registrationForm!: FormGroup;
   isFormChanged: boolean = false;
+  passwordVisible: boolean = false;
+
 
   constructor(private fb:FormBuilder,private router: Router,private http:HttpClient) { }
 
@@ -95,5 +97,9 @@ export class RegistrationFormComponent implements OnInit {
   toggleLogin() {
     alert('Redirecting to login form')
     this.router.navigate(['/login']);
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
   }
 }

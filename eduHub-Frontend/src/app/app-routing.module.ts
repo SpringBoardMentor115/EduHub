@@ -1,30 +1,24 @@
-import { RegistrationFormComponent } from './pages/registration-form/registration-form.component';
-import { LoginComponent } from './pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginSignupButtonsComponent } from './pages/login-signup-buttons/login-signup-buttons.component';
-import { HeaderComponent } from './pages/header/header.component';
-import { FooterComponent } from './pages/footer/footer.component';
+import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-
+import { RegistrationFormComponent } from './pages/registration-form/registration-form.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'registration-form', component: RegistrationFormComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'login-signup-buttons', component: LoginSignupButtonsComponent },
-    { path: 'header', component: HeaderComponent },
-    { path: 'footer', component: FooterComponent },
-    { path: 'dashboard', component: DashboardComponent }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'registration-form', component: RegistrationFormComponent },
+  { path: 'login', component: LoginComponent },
+  // { path: 'courses/:categoryId', component: CoursesComponent },
+  {path: 'courses', component: CoursesComponent}
 ];
-@NgModule({
 
-    imports: [RouterModule.forRoot(routes)],
-  
-    exports: [RouterModule]
-  
-  })
-  
-  export class AppRoutingModule { }
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule,RouterModule],
+})
+export class AppRoutingModule {}

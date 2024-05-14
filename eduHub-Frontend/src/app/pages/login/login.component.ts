@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthenticationService } from '../../authentication.service';
+import { Injectable } from '@angular/core';
+import { error } from 'console';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,7 +39,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +83,7 @@ export class LoginComponent implements OnInit {
   passwordsMatch(): boolean {
     const password = this.resetPasswordForm.get('newPassword')?.value;
     const confirmPassword = this.resetPasswordForm.get('confirmPassword')?.value;
-    return password === confirmPassword;
+    return password === confirmPassword; // Use strict comparison (===)
   }
 
   subscribeToFormChanges(): void {
@@ -95,12 +99,16 @@ export class LoginComponent implements OnInit {
   resetPassword(): void {
     if (this.formState === 'reset') {
       if (this.resetPasswordForm.valid) {
+        this.successMessage = 'Password reset link sent to email address.';
+        this.isResetPasswordFormChanged = false;
+        setTimeout(() => {
+          this.resetPasswordVisible = false;
+        }, 3000);
         let resetpassword = {
-          email: this.resetPasswordForm.get('resetEmail')?.value,
+          resetEmail: this.resetPasswordForm.get('resetEmail')?.value,
           newPassword: this.resetPasswordForm.get('newPassword')?.value
         };
-  
-        this.http.post('http://localhost:8080/auth/reset-password', resetpassword).subscribe((response: any) => {
+        this.http.post('http://localhost:8080/auth/reset-password', resetpassword, { responseType: 'text' }).subscribe((response: any) => {
           console.log(response);
           this.router.navigate(['/login']);
         });
@@ -110,24 +118,41 @@ export class LoginComponent implements OnInit {
     }
   }
   
-  
-  
+
   loginUser(): void {
     if (this.formState === 'login') {
       if (this.loginForm.valid) {
-        let login = {
+        const login = {
           email: this.loginForm.get('email')?.value,
           password: this.loginForm.get('password')?.value
         };
-        this.http.post('http://localhost:8080/auth/login', login, { responseType: 'text' }).subscribe((response: any) => {
-          console.log(response);
-          this.router.navigate(['/dashboard']);
-        });
+
+        this.http.post('http://localhost:8080/auth/login', login, { responseType: 'json' }).subscribe(
+          (response: any) => {
+            console.log(response);
+            // Check if response contains a token
+            if (response && response.token) {
+              const token = response.token;
+              // Store the token for further use
+              this.authService.setToken(token);
+              this.authService.setLoginStatus(true);
+              // Navigate to the home page
+              this.router.navigate(['/home']);
+            } else {
+              console.error('Login failed: Token not found in response');
+              this.errorMessage = 'Invalid response from server.';
+            }
+          },
+          (error: any) => {
+            console.error('Login failed:', error);
+            this.errorMessage = 'Invalid email or password.';
+          }
+        );
       } else {
         this.errorMessage = 'Please fill out all required fields.';
       }
     }
-  }
+  }  
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;

@@ -1,0 +1,200 @@
+*{
+    box-sizing: border-box;
+}
+.container{
+    min-height: 100vh;
+    min-width: 100vw;
+    align-items: center;
+    position: relative;
+    background-image: url(/assets/courses.png);
+    background-size: cover;
+    background-position: center;
+}
+
+/* for categories */
+.home-grid {
+  padding: 0 1rem;
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align at the top */
+  margin-top: 20px; /* Adjust top margin as needed */
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999; /* Ensure the dropdown is above other content */
+}
+.category-dropdown {
+  position: relative;
+  display: inline-block;
+  background: #000000a3;
+  border-radius: 10px;
+  box-shadow: 0 0 30px 3px solid aquamarine;
+  padding: 0.2rem;
+  z-index: 999; /* Ensure the dropdown is above other content */
+}
+
+.dropdown-menu {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  background-color: #fffefe;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensure the dropdown is above other content */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+  
+  .dropdown-toggle {
+    width: 40vw;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .dropdown-toggle:focus {
+    border-color: #007bff;
+  }
+  
+
+  
+  .category-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 2px solid blanchedalmond;
+    border-left: 5px solid black;
+    transition: background-color 0.3s ease;
+  }
+  
+  .category-list li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .dropdown.active .dropdown-menu {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media screen and (max-width:768px){
+
+    .dropdown-toggle {
+        width: 90vw;
+        
+      }
+  }
+  
+/* for courses */
+.courses {
+  width: 40vw;
+  position: absolute;
+  top: 10%;
+  left: 30%;
+}
+.enrollsection{
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  margin-top: 20px;
+  
+}
+.modal-dialog-centered {
+  /* min-width: 80%; */
+  /* background: aqua; */
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top:5rem;
+  display: flex;
+  
+  justify-content: center;
+}
+.enrollmodal-content{
+  margin:0.5rem;
+  padding:0.5rem;
+  background: ghostwhite;
+  border:1px solid black;
+
+}
+.enrollmodal-header {
+  border-bottom: 1px solid #dee2e6;
+  background-color: gray;
+}
+
+.enrollmodal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+  text-align: center;
+  color: white;
+}
+
+.enrollmodal-footer {
+  border-top: 1px solid #dee2e6;
+  padding: 1rem;
+}
+
+.enrollmodal-foot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Styling for the table container */
+.table-container {
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+/* Styling for the table */
+table {
+  background-color: whitesmoke;
+  border:1px solid black;
+  border-collapse: collapse;
+}
+
+/* Styling for table rows */
+table tr {
+  border-bottom: 1px solid #ccc;
+}
+
+/* Styling for table cells */
+table td {
+  border-bottom: 1px solid black;
+  font-size: 1.3rem;
+  padding: 10px;
+}
+
+/* Styling for the enroll button */
+.btn-primary {
+  /* width: 5vw; */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
