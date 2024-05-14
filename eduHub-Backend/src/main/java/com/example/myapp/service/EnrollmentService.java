@@ -52,12 +52,12 @@ public class EnrollmentService {
         });
     }
     
-//    public List<Enrollment> getEnrolledActiveCoursesByUserId(Integer userId) {
-//        return enrollmentRepository.findByUserIdAndStatus(userId, EnrollmentStatus.ACTIVE);
-//    }
-    
-    public List<Course> getEnrolledActiveCoursesByUserId(Integer userId) {
+    public List<Enrollment> getEnrolledActiveCourses(Integer userId) {
         return enrollmentRepository.findActiveCoursesByUserId(userId);
     }
+    
+//    public List<Course> getEnrolledActiveCoursesByUserId(Integer userId) {
+//        return enrollmentRepository.findActiveCoursesByUserId(userId);
+//    }
 
 }

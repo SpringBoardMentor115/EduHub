@@ -15,6 +15,9 @@ import com.example.myapp.model.Enrollment;
 public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
 	Optional<Enrollment> findByUserIdAndCourseId(Integer userId, Long courseId);
 	
-	@Query("SELECT e.course FROM Enrollment e WHERE e.userId = :userId AND e.status = 'ACTIVE'")
-    List<Course> findActiveCoursesByUserId(@Param("userId") Integer userId);
+//	@Query("SELECT e.course FROM Enrollment e WHERE e.userId = :userId AND e.status = 'ACTIVE'")
+//    List<Course> findActiveCoursesByUserId(@Param("userId") Integer userId);
+	
+	@Query("SELECT e FROM Enrollment e WHERE e.user.id = :userId AND e.status = 'ACTIVE'")
+    List<Enrollment> findActiveCoursesByUserId(Integer userId);
 }
