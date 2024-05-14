@@ -4,7 +4,9 @@
   background-position: center;
   backdrop-filter: blur(10px);
   height: 100vh;
+  /* display: flex; */
   justify-content: center;
+  /* align-items: center; */
 }
 
 .register-form {
@@ -34,4 +36,15 @@
 
 .login-forms h1 {
   font-size: 2em;
+}
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

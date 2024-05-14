@@ -23,15 +23,24 @@
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" formControlName="password" class="form-control">
+                <div class="password-input-group">
+                  <input type="{{ passwordVisible ? 'text' : 'password' }}" id="password" formControlName="password" class="form-control">
+                  <i class="password-toggle-icon fas" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
+                </div>
+              
                 <span *ngIf="password?.invalid && password?.touched" class="text-danger">Password is required</span>
               </div>
               <div class="mb-3">
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
-                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
+                <div class="password-input-group">
+                  <input type="{{ passwordVisible ? 'text' : 'password' }}" id="confirmPassword" formControlName="confirmPassword" class="form-control">
+                  <i class="password-toggle-icon fas" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
+                </div>
+              
                 <span *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="text-danger">Confirm Password is required</span>
                 <span *ngIf="!passwordsMatch() && confirmPassword?.touched" class="text-danger">Passwords must match</span>
               </div>
+              
               <button type="submit" [disabled]="registrationForm.invalid || !passwordsMatch()" class="btn btn-primary">Register</button>
             </form>
           </div>
@@ -40,7 +49,7 @@
     </div>
     <div class="row justify-content-center loginhere">
       <div class="col text-center">
-        <p>If you have already registered, click <button type="button" class="btn btn-link border-info" (click)="toggleLogin()">here</button> to login.</p>
+        <p>If you have already registered,  click <button type="button" class="btn btn-link border-info" (click)="toggleLogin()">here</button> to login.</p>
       </div>
     </div>
   </div>
