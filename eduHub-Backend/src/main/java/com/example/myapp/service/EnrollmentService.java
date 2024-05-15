@@ -1,6 +1,5 @@
 package com.example.myapp.service;
 
-import com.example.myapp.model.Course;
 import com.example.myapp.model.Enrollment;
 import com.example.myapp.model.Enrollment.EnrollmentStatus;
 import com.example.myapp.repository.EnrollmentRepository;
@@ -30,19 +29,6 @@ public class EnrollmentService {
         Optional<Enrollment> existingEnrollment = enrollmentRepository.findByUserIdAndCourseId(userId, courseId);
         return existingEnrollment.isPresent();
     }
-    
-//    public boolean isAlreadyEnrolledOrUnsubscribed(Integer userId, Long courseId) {
-//        Optional<Enrollment> existingEnrollment = enrollmentRepository.findByUserIdAndCourseId(userId, courseId);
-//        
-//        if (existingEnrollment.isPresent()) {
-//            // If the enrollment exists, check if its status is ACTIVE or UNSUBSCRIBED
-//            Enrollment enrollment = existingEnrollment.get();
-//            return enrollment.getStatus() == EnrollmentStatus.ACTIVE;
-//        } else {
-//            // If the enrollment doesn't exist, user can enroll
-//            return false;
-//        }
-//    }
  
     public void unsubscribeCourse(Integer userId, Long courseId, EnrollmentStatus status) {
         Optional<Enrollment> existingEnrollment = enrollmentRepository.findByUserIdAndCourseId(userId, courseId);
@@ -56,8 +42,5 @@ public class EnrollmentService {
         return enrollmentRepository.findActiveCoursesByUserId(userId);
     }
     
-//    public List<Course> getEnrolledActiveCoursesByUserId(Integer userId) {
-//        return enrollmentRepository.findActiveCoursesByUserId(userId);
-//    }
 
 }

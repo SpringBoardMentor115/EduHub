@@ -1,6 +1,5 @@
 package com.example.myapp.controller;
 
-import com.example.myapp.model.Course;
 import com.example.myapp.model.Enrollment;
 import com.example.myapp.model.Enrollment.EnrollmentStatus;
 import com.example.myapp.model.User;
@@ -44,21 +43,6 @@ public class EnrollmentController {
         }
     }
     
-//    @PostMapping("/enroll")
-//    public ResponseEntity<Map<String, String>> enrollCourse(@RequestBody Enrollment enrollmentDto) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Integer userId = user.getId();
-//
-//        // Check if the user is already enrolled or if the enrollment status is UNSUBSCRIBED
-//        boolean alreadyEnrolledOrUnsubscribed = enrollmentService.isAlreadyEnrolledOrUnsubscribed(userId, enrollmentDto.getCourseId());
-//        if (alreadyEnrolledOrUnsubscribed) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "User is already enrolled or has unsubscribed from this course"));
-//        } else {
-//            enrollmentService.enrollCourse(userId, enrollmentDto.getCourseId(), enrollmentDto.getEnrollmentDate(), EnrollmentStatus.ACTIVE);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Enrolled Successfully"));
-//        }
-//    }
-    
     @PutMapping("/unsubscribeCourse")
     public ResponseEntity<Map<String, String>> unsubscribeCourse(@RequestBody Enrollment unsubscribeRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();       
@@ -67,14 +51,6 @@ public class EnrollmentController {
         return ResponseEntity.ok(Map.of("message", "Unsubscribed successfully"));
     }
 
-//    @GetMapping("/get-enrolled-courses")
-//    public ResponseEntity<List<Course>> getEnrolledCoursesByUserId() {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Integer userId = user.getId();
-//        List<Course> enrolledCourses = enrollmentService.getEnrolledActiveCoursesByUserId(userId);
-//        return ResponseEntity.ok(enrolledCourses);
-//    }
-    
     @GetMapping("/get-enrolled-courses")
     public ResponseEntity<List<Enrollment>> getEnrolledCoursesByUserId() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

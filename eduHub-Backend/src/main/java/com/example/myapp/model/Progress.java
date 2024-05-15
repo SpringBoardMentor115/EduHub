@@ -17,57 +17,66 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Progress")
 public class Progress {
-	  @Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-	  @Column(name = "ProgressID")
-	  private Integer progressId;
-	  
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ProgressID")
+    private Integer progressId;
 
-	  @Column(name = "ProgressPercentage")
-	  private int progressPercentage;
+    @Column(name = "ProgressPercentage")
+    private Integer progressPercentage;
 
-	  @Column(name = "LastAccessedDate")
-	  private Date lastAccessedDate;
-	  
-	  @OneToOne
-	  @JoinColumn(name = "EnrollmentId", referencedColumnName = "enrollmentId" ,insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Progress_Enrollment"))
-	  @JsonBackReference 
-	  private Enrollment enrollment;
+    @Column(name = "LastAccessedDate")
+    private Date lastAccessedDate;
 
+    @OneToOne
+    @JoinColumn(name = "EnrollmentId", referencedColumnName = "EnrollmentId", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Progress_Enrollment"))
+    @JsonBackReference
+    private Enrollment enrollment;
 
+    public Progress() {}
 
-	    public Integer getProgressId() {
-	        return progressId;
-	    }
+    // Getters and Setters
 
-	    public void setProgressId(Integer progressId) {
-	        this.progressId = progressId;
-	    }
+    public Integer getProgressId() {
+        return progressId;
+    }
 
-	    public int getProgressPercentage() {
-	        return progressPercentage;
-	    }
+    public void setProgressId(Integer progressId) {
+        this.progressId = progressId;
+    }
 
-	    public void setProgressPercentage(int progressPercentage) {
-	        this.progressPercentage = progressPercentage;
-	    }
+    public Integer getProgressPercentage() {
+        return progressPercentage;
+    }
 
-	    public Date getLastAccessedDate() {
-	        return lastAccessedDate;
-	    }
+    public void setProgressPercentage(Integer progressPercentage) {
+        this.progressPercentage = progressPercentage;
+    }
 
-	    public void setLastAccessedDate(Date lastAccessedDate) {
-	        this.lastAccessedDate = lastAccessedDate;
-	    }
+    public Date getLastAccessedDate() {
+        return lastAccessedDate;
+    }
 
-	    public Enrollment getEnrollment() {
-	        return enrollment;
-	    }
+    public void setLastAccessedDate(Date lastAccessedDate) {
+        this.lastAccessedDate = lastAccessedDate;
+    }
 
-	    public void setEnrollment(Enrollment enrollment) {
-	        this.enrollment = enrollment;
-	    }
-	    public long getEnrollmentId() {
-	        return enrollment != null ? enrollment.getEnrollmentId() : null;
-	    }
-	}
+    public Enrollment getEnrollment() {
+        return enrollment;
+    }
+
+    public void setEnrollment(Enrollment enrollment) {
+        this.enrollment = enrollment;
+    }
+
+    public Long getEnrollmentId() {
+        return enrollment != null ? enrollment.getEnrollmentId() : null;
+    }
+
+    public void setEnrollmentId(Long enrollmentId) {
+        if (this.enrollment == null) {
+            this.enrollment = new Enrollment();
+        }
+        this.enrollment.setEnrollmentId(enrollmentId);
+    }
+}
