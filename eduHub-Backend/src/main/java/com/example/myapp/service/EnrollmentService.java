@@ -42,5 +42,17 @@ public class EnrollmentService {
         return enrollmentRepository.findActiveCoursesByUserId(userId);
     }
     
+    public EnrollmentStatus getEnrollmentStatus(Integer userId, Long courseId) {
+        Optional<Enrollment> existingEnrollment = enrollmentRepository.findByUserIdAndCourseId(userId, courseId);
+        return existingEnrollment.map(Enrollment::getStatus).orElse(null);
+    }
 
+    public void reEnrollCourse(Integer userId, Long courseId, Date enrollmentDate, EnrollmentStatus status) {
+        Optional<Enrollment> existingEnrollment = enrollmentRepository.findByUserIdAndCourseId(userId, courseId);
+        existingEnrollment.ifPresent(enrollment -> {
+            enrollment.setStatus(status);
+            enrollment.setEnrollmentDate(enrollmentDate);
+            enrollmentRepository.save(enrollment);
+        });
+    }
 }
