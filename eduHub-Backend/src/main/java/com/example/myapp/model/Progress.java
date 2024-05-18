@@ -15,7 +15,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Progress")
+@Table(name = "Progress")
 public class Progress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +29,14 @@ public class Progress {
     private Date lastAccessedDate;
 
     @OneToOne
-    @JoinColumn(name = "EnrollmentId", referencedColumnName = "EnrollmentId", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "FK_Progress_Enrollment"))
+    @JoinColumn(name = "EnrollmentId", referencedColumnName = "EnrollmentId", foreignKey = @ForeignKey(name = "FK_Progress_Enrollment"))
     @JsonBackReference
     private Enrollment enrollment;
 
-    public Progress() {}
+    public Progress() {
+    }
 
     // Getters and Setters
-
     public Integer getProgressId() {
         return progressId;
     }

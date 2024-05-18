@@ -28,4 +28,9 @@ public class ProgressService {
             return null;
         }
     }
+    
+    @Transactional
+    public Progress createProgress(Progress progress) {
+        return progressRepository.save(progress);
+    }
 }
