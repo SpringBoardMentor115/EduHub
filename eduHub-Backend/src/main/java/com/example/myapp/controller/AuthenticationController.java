@@ -1,14 +1,9 @@
 package com.example.myapp.controller;
 
 import com.example.myapp.model.User;
-//import com.example.myapp.responses.LoginResponse;
-//import com.example.myapp.responses.SignupResponse;
 import com.example.myapp.service.AuthenticationService;
 import com.example.myapp.service.JwtService;
 import com.example.myapp.service.UserService;
-
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 
 @CrossOrigin("*")
 @RequestMapping("/auth")
@@ -31,12 +27,11 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
         this.userService = userService;
     }
-  
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody User registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
-  
+
         User response = new User();
         response.setUserName(registeredUser.getUserName());
         response.setEmail(registeredUser.getEmail());
@@ -44,7 +39,6 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(response);
     }
-    
 
     @PostMapping("/login")
     public ResponseEntity<User> authenticate(@RequestBody User loginUserDto) {
@@ -52,11 +46,13 @@ public class AuthenticationController {
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        User response = new User().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+        // Set the fields for the response
+        authenticatedUser.setToken(jwtToken);
+        authenticatedUser.setExpiresIn(jwtService.getExpirationTime());
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(authenticatedUser);
     }
-    
+
     @PostMapping("/reset-password")
     public ResponseEntity<Map<String, String>> resetPassword(@RequestBody Map<String, String> resetRequest) {
         String email = resetRequest.get("email");
@@ -73,6 +69,4 @@ public class AuthenticationController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
     }
-
-
 }

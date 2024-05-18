@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     @Transient
     private String token;
-    
+
     @Transient
     private long expiresIn;
 
@@ -49,7 +49,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
@@ -133,10 +133,10 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "UserID=" + userID +
-                ", Username='" + username + '\'' +
-                ", Email='" + email + '\'' +
-                ", Password='" + password + '\'' +
+                "userID=" + userID +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
