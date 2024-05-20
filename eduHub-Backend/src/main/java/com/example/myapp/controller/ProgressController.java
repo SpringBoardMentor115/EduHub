@@ -3,6 +3,7 @@ package com.example.myapp.controller;
 import com.example.myapp.model.Progress;
 import com.example.myapp.service.ProgressService;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -40,14 +41,15 @@ public class ProgressController {
     public ResponseEntity<Map<String, String>> updateProgressPercentage(@RequestBody Progress requestBody) {
         Long enrollmentId = requestBody.getEnrollmentId();
         Integer percentage = requestBody.getProgressPercentage();
+        Date date = requestBody.getLastAccessedDate();
 
         if (enrollmentId == null || percentage == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "Invalid request body"));
         }
 
-        Progress updatedProgress = progressService.updateProgressPercentage(enrollmentId, percentage);
+        Progress updatedProgress = progressService.updateProgressPercentage(enrollmentId, percentage, date);
         if (updatedProgress != null) {
-            return ResponseEntity.ok(Map.of("message", "Updated Percentage successfully"));
+            return ResponseEntity.ok(Map.of("message", "Updated successfully"));
         } else {
             return ResponseEntity.notFound().build();
         }

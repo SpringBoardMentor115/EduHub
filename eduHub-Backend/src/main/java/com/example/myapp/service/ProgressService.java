@@ -2,6 +2,9 @@ package com.example.myapp.service;
 
 import com.example.myapp.model.Progress;
 import com.example.myapp.repository.ProgressRepository;
+
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +22,11 @@ public class ProgressService {
     }
 
     @Transactional
-    public Progress updateProgressPercentage(Long enrollmentId, int percentage) {
+    public Progress updateProgressPercentage(Long enrollmentId, int percentage, Date date) {
         Progress progress = progressRepository.findByEnrollmentEnrollmentId(enrollmentId);
         if (progress != null) {
             progress.setProgressPercentage(percentage);
+            progress.setLastAccessedDate(date);
             return progressRepository.save(progress);
         } else {
             return null;
