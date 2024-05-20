@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   showCourseOverviewSection: boolean = false; // New property to control visibility
   username: string | null = null;
   modalCourse: any;
+  allenrollcourses:boolean = false;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -80,10 +81,14 @@ export class DashboardComponent implements OnInit {
 
     this.http.get<any[]>(apiUrl, { headers }).subscribe(
       (courses) => {
+        if (courses.length === 0) {
+          this.allenrollcourses = true;
+        } else {
         this.enrolledCourses = courses;
         courses.forEach(course => {
           this.fetchProgress(course.enrollmentId);
         });
+      }
       },
       (error) => {
         console.error('Error fetching enrolled courses:', error);
@@ -303,12 +308,37 @@ unenrollCourseConfirm(courseId: number): void {
     this.http.put<any>(apiUrl, body, { headers }).subscribe(
      () => {
         console.log('Unenrolled successfully');
-        this.fetchEnrolledCourses();
+        this.resetProgressPercentage(this.modalCourse.enrollmentId);
       },
       (error) => {
         console.error('Error unenrolling from course:', error);
       }
     );
-  }
+   }
+  resetProgressPercentage(enrollmentId: number): void {
+    const updatedPercentage = 0;
+    
+    const lastAccessed = null;
+    const apiUrl = `http://localhost:8080/trackprogress/updatePercentage`;
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    const body = {
+      enrollmentId: enrollmentId,
+      progressPercentage: updatedPercentage,
+      lastAccessedDate: lastAccessed      };
   
+    console.log("reset",body);
+  
+    this.http.put<any>(apiUrl, body, { headers }).subscribe(
+      () => {
+        console.log('Reset course progress successfully');
+        this.fetchEnrolledCourses();
+      },
+      (error) => {
+        console.error('Error reseting progress:', error);
+      }
+    );
+  }
 }

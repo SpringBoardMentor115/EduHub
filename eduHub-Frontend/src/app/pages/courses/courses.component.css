@@ -6,16 +6,26 @@
     min-width: 100vw;
     align-items: center;
     position: relative;
-    background-image: url(/assets/courses.png);
+    /* background-image: url(/assets/courses.png); */
     background-size: cover;
     background-position: center;
 }
 .col-md-2{
   /* width: 100%; */
-  background: #00000045;
-  min-height: 100vh;
+  /* background: #00000045;
   border-right: 2.5px solid black;
-  box-shadow: 2px 5px 10px 1px rgb(26, 19, 19) ;
+  box-shadow: 2px 5px 10px 1px rgb(26, 19, 19) ; */
+  width: 250px;
+  min-height: 100vh;
+    background-color: #0057b3e4;
+    color: #fff;
+    padding: 20px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    align-items: center;
+    
+    height: 100%;
+
 }
 /* for categories */
 .home-grid {
@@ -26,7 +36,7 @@
 .category-dropdown {
   position: relative;
   /* display: inline-block; */
-  background: #ffffffa3;
+  /* background: #ffffffa3; */
   border-radius: 10px;
   box-shadow: 0 0 30px 3px solid aquamarine;
   padding: 0.2rem;
@@ -50,12 +60,13 @@
 
   
   .dropdown-toggle {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    transition: border-color 0.3s ease;
-    width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      transition: border-color 0.3s ease;
+      width: 100%;
+   
   }
   
   .dropdown-toggle:focus {
@@ -98,7 +109,7 @@
     from {
       opacity: 0;
       transform: translateY(-10px);
-      background: red;
+      background: wheat;
     }
     to {
       opacity: 1;
@@ -113,7 +124,14 @@
         
       }
   }
-  
+
+section.home{
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  background: rgba(245, 222, 179, 0.629);
+}
 /* for courses */
 .table-container{
   padding:1rem;
@@ -121,6 +139,33 @@
   border-radius: 10px;
   background: ghostwhite;
   width: 50vw;
+
+}
+.table-container .home h1{
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.table-container .home p{
+  text-align: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.table-container .home ol li{
+  font-size: 1.2rem;
+  font-weight: 550;
+
+}
+.table-container .table tbody tr td{
+  animation: slideDown 0.9s ease;
+
+}
+.table-container .table tbody tr:hover{
+  scale:1.01;
+
 }
 .courses,.enrollsection{
   justify-content: center;

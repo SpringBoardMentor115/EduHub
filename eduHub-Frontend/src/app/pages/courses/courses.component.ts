@@ -22,6 +22,7 @@ export class CoursesComponent implements OnInit {
   selectedCourseId: number = 0;
   showEnrollment: boolean = false;
   selectedcategory: any;
+  coursecatelog: boolean = false;
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
               public router:Router) { }
@@ -110,7 +111,8 @@ enrollCourse(courseId: number): void {
       (response: any[]) => {
         this.courses = response;
         this.showEnrollment = false; // Ensure enrollment section is hidden
-        this.selectedcategory = category[1];
+        this.selectedcategory = category[1] + ' Courses';
+        this.coursecatelog = true;
       },
       (error) => {
         console.error('Error fetching courses:', error);

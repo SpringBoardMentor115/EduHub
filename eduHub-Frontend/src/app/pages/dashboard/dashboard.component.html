@@ -43,6 +43,7 @@
 
       <!-- Header and course list -->
       <section class="courses" *ngIf="!showCourseOverviewSection">
+
         <h1 class="heading">Enrolled Courses</h1>
         <div class="box-container">
           <div class="row box" *ngFor="let enrolledCourse of enrolledCourses">
@@ -86,9 +87,9 @@
                     <button class="btn btn-danger p-2 font-weight-bold" style="transition-delay: 5s;" (click)="unenrollCourseConfirm(modalCourse.courseId)" data-dismiss="modal"> Yes</button>
                     
                     <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="transition-delay: 10s;">
+                    <!-- <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="transition-delay: 10s;">
                       <a href="" class="text-bg bg-success" (click)="unenrollCourseConfirm(modalCourse.courseId)" style="transition-delay: 5s;"> confirm</a>
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </div>

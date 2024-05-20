@@ -117,7 +117,8 @@ export class LoginComponent implements OnInit {
         this.http.post('http://localhost:8080/auth/reset-password', resetPasswordPayload, { responseType: 'text' }).subscribe(
           (response: any) => {
             console.log(response);
-            this.router.navigate(['/home']);
+            this.formState = 'login';
+            // this.router.navigate(['/home']);
           },
           (error: any) => {
             console.error('Reset password failed:', error);

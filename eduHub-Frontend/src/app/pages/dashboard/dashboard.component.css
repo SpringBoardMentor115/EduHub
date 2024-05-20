@@ -193,8 +193,19 @@ section{
    transition: all 0.3s ease;
    border-radius: 0.5rem;
    padding:2px 0;
+   animation: slideDown 0.7s ease;
+}
+@keyframes slideDown {
+   from {
+     opacity: 0;
+     transform: translateY(-20px);
+     background: wheat;
+   }
+   to {
+     opacity: 1;
+     transform: translateY(0);
+   }
  }
- 
  .courses .box-container .box:hover {
    box-shadow: 0 6px 8px rgba(54, 54, 54, 0.853);
  }
@@ -221,7 +232,7 @@ section{
  .courses {
    border-radius: 1rem;
    margin-top:5vh;
-   background: rgba(50, 12, 110, 0.25);
+   background: rgba(10, 29, 124, 0.228);
    display: block;
  }
 .coursecontent{

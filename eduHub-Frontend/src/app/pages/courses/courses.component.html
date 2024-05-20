@@ -16,11 +16,33 @@
       </section>
     </div>
     <div class="col-md-10 courses-section">
+      
       <!-- Courses section -->
       <section class="courses " *ngIf="!showEnrollment">
         <div class="table-container">
-          <h1 class="heaing text-center bg-info text-bg text-light "> {{ selectedcategory }}</h1>
-          <h1 class="heading">Our Courses</h1>
+          <section class="home" *ngIf="!coursecatelog">
+            <h1 class="text-center text-bg form-control">Welcome to  Course Catalog</h1>
+            <p class="text-center">
+              Course catalog offers a wide variety of courses to help you learn new skills and advance your career.
+              From programming to business to design, we have something for everyone.
+            </p>
+            <p class="text-center">
+              To get started, simply select a category from the dropdown menu on the left and browse the available courses.
+              When you find a course you're interested in, click the "Enroll" button to get started.
+            </p>
+            <p >
+              Here are the steps to enroll in a course:
+            </p>
+            <ol >
+              <li>Select a category from the dropdown menu</li>
+              <li>Browse the available courses</li>
+              <li>Click the "Enroll" button for the course you want to take</li>
+              <li>Confirm your enrollment in the enrollment modal</li>
+              <li>Start learning!</li>
+            </ol>
+            <!-- <button class="btn btn-primary" >View Courses</button> -->
+          </section>
+          <h1 class="heaing text-center bg-info text-bg text-light "> {{ selectedcategory }} </h1>
           <table class="table table-hover">
             <tbody>
               <tr *ngFor="let course of courses">
@@ -61,6 +83,7 @@
               </div>
               <div class="enroll-footer">
                 <div class="enroll-foot text-center">
+                  
                   <span *ngIf="authService.isLoggedIn()">
                     <button class="btn btn-primary" (click)="enrollCourse(selectedCourseId)">Enroll Course</button>
                   </span>
