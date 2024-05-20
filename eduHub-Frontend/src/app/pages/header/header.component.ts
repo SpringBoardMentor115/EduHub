@@ -29,11 +29,7 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.showHeader = !event.url.includes('/dashboard'); // Hide header on dashboard route
-      }
-    });
+   
 
 }
 
@@ -44,5 +40,11 @@ navigateToCourses(categoryId: number): void {
 logout(): void {
   this.authService.setLoginStatus(false);
 }
+logoutUser() {
+  this.authService.logout();
+  this.authService.setLoginStatus(false);
+  this.router.navigate(['/login']);
+}
+
 
 }

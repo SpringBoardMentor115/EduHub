@@ -21,6 +21,7 @@ export class CoursesComponent implements OnInit {
   searchTerm: string = '';
   selectedCourseId: number = 0;
   showEnrollment: boolean = false;
+  selectedcategory: any;
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
               public router:Router) { }
@@ -32,44 +33,53 @@ export class CoursesComponent implements OnInit {
     this.showEnrollment = !this.showEnrollment;
   }
   // for enrollment of courses
-  enrollCourse(courseId: number): void {
-    const token = this.authService.getToken();
-    if (!token) {
-      console.error('No token available for courses enrollment');
-      return;
-    }
-    const enrollmentDate = new Date().toISOString().split('T')[0];   
-    const apiUrl = 'http://localhost:8080/api/enroll';
-    const requestBody = {
-      courseId: courseId.toString(), // Convert courseId to string
-      enrollmentDate: enrollmentDate
-    };
-  
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-  
-    this.http.post(apiUrl, requestBody, { headers, observe: 'response' })
-     .subscribe(
-        (response) => {
-          console.log('Enrolled successfully:', response);
-          const responseBody = response.body as { message: string }; // Type assertion          
-          if (responseBody && responseBody.message === 'Enrolled Successfully') {
-            alert('Enrolled successfully!');
-        } else {
-            alert('Already enrolled!');
-        }
-          this.router.navigate(['/dashboard']);
-        },
-        (error) => {
-          console.error('Error enrolling course:', error);
-          if (error.headers instanceof HttpHeaders) {
-            console.error('Error headers:', error.headers);
-          }
-          console.error('Error details:', error.error);
-        }
-      );
+enrollCourse(courseId: number): void {
+  const token = this.authService.getToken();
+  if (!token) {
+    console.error('No token available for courses enrollment');
+    return;
   }
+  const enrollmentDate = new Date().toISOString().split('T')[0];   
+  const apiUrl = 'http://localhost:8080/api/enroll';
+  const requestBody = {
+    courseId: courseId.toString(), // Convert courseId to string
+    enrollmentDate: enrollmentDate
+  };
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  this.http.post(apiUrl, requestBody, { headers, observe: 'response' })
+   .subscribe(
+      (response) => {
+        console.log('Enrolled successfully:', response);
+        const responseBody = response.body as { message: string }; // Type assertion          
+        if (responseBody && responseBody.message === 'Enrolled Successfully') {
+          alert('Enrolled successfully!');
+        }  else {
+          alert('Enrolled successfully!');
+        }
+        this.router.navigate(['/dashboard']);
+      },
+      (error) => {
+        console.error('Error enrolling course:', error);
+        if (error.status === 400) {
+          if (error.error && error.error.message === 'User is already enrolled') {
+            alert('Course already enrolled ');
+            this.router.navigate(['/dashboard']);
+          } else {
+            alert('Failed to enroll. Please try again.');
+          }
+        } else {
+          alert('An unexpected error occurred. Please try again later.');
+        }
+        console.error('Error headers:', error.headers);
+        console.error('Error details:', error.error);
+      }
+    );
+}
+
   
   
 
@@ -99,6 +109,8 @@ export class CoursesComponent implements OnInit {
     this.http.get<any[]>(`http://localhost:8080/auth/${categoryId}`).subscribe(
       (response: any[]) => {
         this.courses = response;
+        this.showEnrollment = false; // Ensure enrollment section is hidden
+        this.selectedcategory = category[1];
       },
       (error) => {
         console.error('Error fetching courses:', error);

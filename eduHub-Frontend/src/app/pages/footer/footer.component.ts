@@ -9,16 +9,10 @@ import { Router, NavigationEnd } from '@angular/router';
   standalone:true,
   imports:[FontAwesomeModule,CommonModule]
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   showFooter: boolean = true;
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.showFooter = !event.url.includes('/dashboard'); // Hide footer on dashboard route
-      }
-    });
-  }
+  
 }

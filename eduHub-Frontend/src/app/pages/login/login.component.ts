@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
   loginvisible: boolean = true;
   errorMessage: string = '';
   successMessage: string = '';
+
   // password: any;
   formState: 'login' | 'reset' = 'login';
-
-  constructor(
+  userName: string | null = '';  constructor(
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
@@ -48,13 +48,14 @@ export class LoginComponent implements OnInit {
     this.initializeResetPasswordForm();
     this.subscribeToFormChanges();
   }
-
+ 
   initializeLoginForm(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
+  
 
   initializeResetPasswordForm(): void {
     this.resetPasswordForm = this.fb.group({
@@ -98,25 +99,38 @@ export class LoginComponent implements OnInit {
 
   resetPassword(): void {
     if (this.formState === 'reset') {
-      if (this.resetPasswordForm.valid) {
+      if (this.resetPasswordForm.valid && this.passwordsMatch()) {
         this.successMessage = 'Password reset link sent to email address.';
         this.isResetPasswordFormChanged = false;
+        console.log("success",this.successMessage);
         setTimeout(() => {
           this.resetPasswordVisible = false;
         }, 3000);
-        let resetpassword = {
-          resetEmail: this.resetPasswordForm.get('resetEmail')?.value,
+        // Construct the payload with correct keys
+        const resetPasswordPayload = {
+          email: this.resetPasswordForm.get('resetEmail')?.value,
           newPassword: this.resetPasswordForm.get('newPassword')?.value
         };
-        this.http.post('http://localhost:8080/auth/reset-password', resetpassword, { responseType: 'text' }).subscribe((response: any) => {
-          console.log(response);
-          this.router.navigate(['/login']);
-        });
+        // Log the payload to check its structure
+        console.log('Reset Password Payload:', resetPasswordPayload);
+        // Make the HTTP request
+        this.http.post('http://localhost:8080/auth/reset-password', resetPasswordPayload, { responseType: 'text' }).subscribe(
+          (response: any) => {
+            console.log(response);
+            this.router.navigate(['/home']);
+          },
+          (error: any) => {
+            console.error('Reset password failed:', error);
+            this.errorMessage = 'Failed to reset password. Please try again.';
+          }
+        );
       } else {
-        this.errorMessage = 'Please fill out all required fields correctly.';
+        this.errorMessage = 'Please fill out all required fields correctly and ensure passwords match.';
       }
     }
   }
+  
+  
   
 
   loginUser(): void {
@@ -126,17 +140,15 @@ export class LoginComponent implements OnInit {
           email: this.loginForm.get('email')?.value,
           password: this.loginForm.get('password')?.value
         };
-
+  
         this.http.post('http://localhost:8080/auth/login', login, { responseType: 'json' }).subscribe(
           (response: any) => {
             console.log(response);
-            // Check if response contains a token
             if (response && response.token) {
               const token = response.token;
-              // Store the token for further use
               this.authService.setToken(token);
               this.authService.setLoginStatus(true);
-              // Navigate to the home page
+              this.authService.setUsername(response.username); // Assuming the response contains a 'username' field
               this.router.navigate(['/home']);
             } else {
               console.error('Login failed: Token not found in response');
@@ -152,7 +164,10 @@ export class LoginComponent implements OnInit {
         this.errorMessage = 'Please fill out all required fields.';
       }
     }
-  }  
+  }
+  
+  
+   
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;

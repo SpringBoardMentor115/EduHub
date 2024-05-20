@@ -64,6 +64,7 @@
 
 .nav-item {
   margin: 0 1rem;
+  padding:-10px 0;
 }
 
 .nav-link {
@@ -72,9 +73,14 @@
   transition: color 0.3s ease-out;
 }
 
-.nav-link:hover {
-  color: #007bff;
+.nav-item:hover {
+  color: rgb(26, 5, 255);
+  border: 1px double black;
+  border-radius: 1rem;
+  background: rgba(211, 211, 210, 0.702);
+  transition: background-color 1s ease-in-out;
 }
+
 
 .login {
   position: absolute;

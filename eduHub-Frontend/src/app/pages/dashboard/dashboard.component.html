@@ -1,24 +1,26 @@
 <div class="dashboard-container">
   <div class="row">
-    <div class="col-md-2" [ngClass]="{'d-none': !isSidebarVisible, 'd-md-block': isSidebarVisible}" id="sidebar">
+    <!-- <div class="col-md-2" [ngClass]="{'d-none': !isSidebarVisible, 'd-md-block': isSidebarVisible}" id="sidebar"> -->
+      <div class="col-md-2 fixed-width-column" id="sidebar">
       <div class="side-bar">
-        <div id="close-btn" (click)="toggleSidebar()">
-          <i class="fas fa-times"></i>
-        </div>
         <div class="profile">
           <img src="../../../assets/profile.png" class="img-fluid rounded-circle" alt="">
-          <h3 class="name"></h3>
-          <p class="role"></p>
+          <h3 class="name">{{ username }}</h3>
+
+          
         </div>
         <nav class="navbar navbar-expand-lg navbar-light flex-column">
-          <a href="/home" class="navbar-brand"><i class="fas fa-home"></i><span>Home</span></a>
+          <a href="/dashboard" class="navbar-brand"><i class="fas fa-home"></i><span>Home</span></a>
           <a href="/courses" class="navbar-brand"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
         </nav>
       </div>
     </div>
 
-    <div [ngClass]="{'col-md-10': isSidebarVisible , 'col-md-12': !isSidebarVisible}">
-      <header class="header">
+    <!-- <div [ngClass]="{'col-md-10': isSidebarVisible , 'col-md-12': !isSidebarVisible}"> -->
+    <div class="col-md-10">
+
+      <!-- <header class="header">
+
         <section class="flex">
           <a href="/dashboard" class="logo">EduHub</a>
           <div class="icons">
@@ -37,8 +39,9 @@
             <a href="profile.html" class="btn">View Profile</a>
           </div>
         </section>
-      </header>
+      </header> -->
 
+      <!-- Header and course list -->
       <section class="courses" *ngIf="!showCourseOverviewSection">
         <h1 class="heading">Enrolled Courses</h1>
         <div class="box-container">
@@ -48,33 +51,62 @@
                 <ul class="list-group list-group-horizontal">
                   <li>
                     <h2 class="card-title title">{{ enrolledCourse.course.courseName }}</h2>
-                    <!-- <h2 class="card-title title">{{ course.courseName }}</h2> -->
-                    <!-- <h2>{{ course.courseId}}</h2> -->
                   </li>
                   <li class="ml-auto m-3">
-                    <button class="btn btn-primary btn-block p-2 font-weight-bold" (click)="toggleCourseContent(enrolledCourse.courseId)">View Details</button>
+                    <button class="btn btn-primary btn-block p-2 font-weight-bold" (click)="toggleCourseContent(enrolledCourse.courseId);viewCourseDetails(enrolledCourse)">View Details</button>
                   </li>
                   <li class="mr-4">
-                    <button class="btn btn-danger btn-block p-2 font-weight-bold" (click)="unenrollCourse(enrolledCourse.courseId)">Unenroll</button>
+                    <!-- <button class="btn btn-danger p-2 font-weight-bold" (click)="unenrollCourse(enrolledCourse.courseId)">Yes</button> -->
+                    <button type="button" class="btn btn-danger p-2 font-weight-bold"  data-toggle="modal" data-target="#myModal" (click)="unenrollCourse(enrolledCourse)">UnEnroll</button>
+
+
                   </li>
                 </ul>
               </div>
             </div>
+
+
+   
+            <div class="modal fade" id="myModal" #myModal *ngIf="modalCourse">
+              <!-- Modal content -->
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Unenroll course</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h2 class="font-weight-bold text-success text-bg">{{ modalCourse.course.courseName }}</h2>
+                    <b class="text-danger">Do you want to unenroll from this course?</b>
+                    <br>
+                    <b>No longer access this course</b>
+                    <br>
+                    <b>Click on Yes to continue</b>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-danger p-2 font-weight-bold" style="transition-delay: 5s;" (click)="unenrollCourseConfirm(modalCourse.courseId)" data-dismiss="modal"> Yes</button>
+                    
+                    <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="transition-delay: 10s;">
+                      <a href="" class="text-bg bg-success" (click)="unenrollCourseConfirm(modalCourse.courseId)" style="transition-delay: 5s;"> confirm</a>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+                       
           </div>
-        </div>
-        <div class="more-btn">
-          <a href="/courses" class="inline-option-btn">View All Courses</a>
         </div>
       </section>
 
-      <section *ngIf="showCourseOverviewSection" class="course-overview">
-          <h1>Course overview</h1>
+
+      <section *ngIf="showCourseOverviewSection ; selectedCourse" class="course-overview">
+          <h1 class="text-center">Course overview</h1>
           <h2>{{ selectedCourse.course.courseName }}</h2>
-          <div class="progress">
+          <!-- <div class="progress">
             <div class="progress-bar" role="progressbar" [style.width]="calculateTotalProgress() + '%'">
               {{ calculateTotalProgress() }}%
             </div>
-          </div>
+          </div> -->
           <div *ngFor="let progress of progressData">
             <div class="progress">
               <div class="progress-bar" role="progressbar" [style.width]="progress.progressPercentage + '%'">
@@ -82,27 +114,44 @@
               </div>
             </div>
           </div>
-          <ul>
-            <li *ngFor="let content of selectedCourse.courseContent; let i = index">
-              <h3 class="text-center module-title">Module {{ i + 1 }}</h3>
-              <b>Title: </b>{{ content.contentTitle }} <br>
-              <b>Description: </b>{{ content.contentDescription }} <br>
-              <b>Content URL: </b><a [href]="content.contentURL" target="_blank">{{ content.contentURL }}</a> <br>
-              <button [ngClass]="content.status === 'READ' ? 'btn btn-danger' : 'btn btn-success'" (click)="toggleContentStatus(content)">
-                Mark as {{ content.status === 'READ' ? 'Unread' : 'Read' }}
-              </button>
-            </li>
-          </ul>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-4" *ngFor="let content of selectedCourse.courseContent; let i = index">
+                <div class="card mb-4 shadow-sm animate-card card-equal-height">
+                  <div class="custom-card-body">
+                    <h3 class="card-title text-center module-title">Module {{ i + 1 }}</h3>
+                    <p class="card-text">
+                      <b>Title: </b>{{ content.contentTitle }} <br>
+                      <b>Description: </b>{{ content.contentDescription }} <br>
+                      <b>Content URL: </b><a [href]="content.contentURL" target="_blank">{{ content.contentURL }}</a> <br>
+                    </p>
+                    <button [ngClass]="content.status === 'READ' ? 'btn btn-danger' : 'btn btn-success'"
+                            (click)="toggleContentStatus(content, i)"
+                            [disabled]="content.status === 'READ' && i > 0 && selectedCourse.courseContent[i - 1].status !== 'READ'">
+                      Mark as {{ content.status === 'READ' ? 'Unread' : 'Read' }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
           <div class="back">
             <button class="btn btn-info p-2 font-weight-bold" (click)="goBackToCourses()"><i class="fas fa-reply-all"></i> Go back</button>
             <button class="btn btn-success p-2 font-weight-bold float-right" *ngFor="let progress of progressData">Last Accessed: {{ progress.lastAccessedDate | date }}</button>
           </div>
-  
+
+          
+          
       </section>
 
-      <footer class="footer">
-        &copy;<span>EduHub</span> | All Rights Reserved!
-      </footer>
-    </div>
+      
   </div>
 </div>
