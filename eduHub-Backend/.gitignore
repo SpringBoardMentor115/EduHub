@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Directories #
+###############
+bin/
+obj/
+TestResults/
