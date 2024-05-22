@@ -12,8 +12,9 @@
               <div class="mb-3">
                 <label for="userName" class="form-label">Username</label>
                 <input type="text" id="userName" placeholder="Enter userName" formControlName="userName" class="form-control">
-                <span *ngIf="userName?.invalid && userName?.touched" class="text-danger">userName is required</span>
-              </div>
+                <span *ngIf="userName?.invalid && userName?.touched" class="text-danger">userName is required</span><br>
+                <span *ngIf="userName?.errors?.['alphanumeric'] && userName?.touched" class="text-danger">Username must be alphanumeric</span>
+              </div>  
               <div class="mb-3">
                 <label for="email" class="form-label">E-Mail</label>
                 
@@ -42,6 +43,8 @@
               </div>
               
               <button type="submit" [disabled]="registrationForm.invalid || !passwordsMatch()" class="btn btn-primary">Register</button>
+              
+              
             </form>
           </div>
         </div>
@@ -56,3 +59,5 @@
 </div>
   </div>
 </div>
+
+<p-toast key="toast1"></p-toast>

@@ -6,14 +6,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CoursesComponent } from '../courses/courses.component';
 import { FormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { last } from 'rxjs';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [HttpClientModule, CommonModule, RouterModule, CoursesComponent, FormsModule]
+  imports: [HttpClientModule, CommonModule, RouterModule, CoursesComponent, FormsModule,ButtonModule,ToastModule],
+  providers: [MessageService]
+
 })
 export class DashboardComponent implements OnInit {
   categories: any[] = [];
@@ -30,7 +34,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -102,21 +107,19 @@ export class DashboardComponent implements OnInit {
       console.error('No token available');
       return;
     }
-
+  
     const apiUrl = `http://localhost:8080/trackprogress/${enrollmentId}`;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-
+  
     this.http.get<any>(apiUrl, { headers }).subscribe(
       (progress) => {
         const course = this.enrolledCourses.find(course => course.enrollmentId === enrollmentId);
         if (course && progress) {
-          this.progressData = [];
-          
           course.progressPercentage = progress.progressPercentage;
+          this.progressData=[];
           this.selectedCourse = course;
-          console.log("progress is ",progress);
           this.progressData.push(progress);
           this.calculateContentStatus();
         }
@@ -126,6 +129,8 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  
+  
 
   viewCourseDetails(course: any): void {
     this.selectedCourse = course;
@@ -168,8 +173,8 @@ export class DashboardComponent implements OnInit {
   
     this.http.post<any>(apiUrl, requestBody, { headers }).subscribe(
       (response) => {
+        this.messageService.add({key:'toast1',severity:'Info', summary:'Hurray', detail:'Started Learning the course'});
         console.log('Progress entry created successfully:', response);
-        // After creating the progress entry, proceed to view details
       },
       (error) => {
         console.error('Error creating progress entry:', error);
@@ -188,12 +193,13 @@ export class DashboardComponent implements OnInit {
     }
   
     const totalModules = this.selectedCourse.courseContent.length;
-    const completedModules = Math.floor(this.selectedCourse.progressPercentage / 100 * totalModules);
+    const completedModules = Math.round((this.selectedCourse.progressPercentage / 100) * totalModules);
   
     for (let i = 0; i < totalModules; i++) {
       this.selectedCourse.courseContent[i].status = i < completedModules ? 'READ' : 'UNREAD';
     }
   }
+  
     
 
   fetchCourseContent(courseId: number): void {
@@ -215,29 +221,31 @@ export class DashboardComponent implements OnInit {
     this.selectedCourse = course;
   }
 
+
+
   toggleContentStatus(content: any, index: number): void {
     if (content.status === 'READ') {
       // Check if any subsequent modules are marked as 'READ' before marking this one as 'UNREAD'
       for (let i = index + 1; i < this.selectedCourse.courseContent.length; i++) {
         if (this.selectedCourse.courseContent[i].status === 'READ') {
-          alert('You need to mark the subsequent modules as unread first.');
+          this.messageService.add({ key: 'toast1', severity: 'warn', summary: 'Warning', detail: 'You need to mark the subsequent modules as unread first.' });
           return;
         }
       }
-      // Mark as unread and set all subsequent modules as unread
+      // Mark as unread
       content.status = 'UNREAD';
     } else {
       // Check if the previous module is marked as 'READ' before marking this one as 'READ'
       if (index > 0 && this.selectedCourse.courseContent[index - 1].status !== 'READ') {
-        alert('You need to complete the previous module first.');
+        this.messageService.add({ key: 'toast1', severity: 'warn', summary: 'Warning', detail: 'You need to complete the previous module first.' });
         return;
       }
       // Mark as read
       content.status = 'READ';
     }
+  
     this.updateProgressPercentage(this.selectedCourse.enrollmentId);
   }
-  
   
   
   
@@ -245,8 +253,8 @@ export class DashboardComponent implements OnInit {
 
   updateProgressPercentage(enrollmentId: number): void {
     const updatedPercentage = this.calculateTotalProgress();
-    
-    const lastAccessed =  new Date().toISOString().split('T')[0];   
+  
+    const lastAccessed = new Date().toISOString().split('T')[0];
     const apiUrl = `http://localhost:8080/trackprogress/updatePercentage`;
     const token = this.authService.getToken();
     const headers = new HttpHeaders({
@@ -255,10 +263,8 @@ export class DashboardComponent implements OnInit {
     const body = {
       enrollmentId: enrollmentId,
       progressPercentage: updatedPercentage,
-      lastAccessedDate: lastAccessed   
-      };
-  
-    console.log(body);
+      lastAccessedDate: lastAccessed
+    };
   
     this.http.put<any>(apiUrl, body, { headers }).subscribe(
       (response) => {
@@ -270,6 +276,7 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  
   
   
   
@@ -288,6 +295,7 @@ export class DashboardComponent implements OnInit {
     }
     return (readItems / totalItems) * 100;
   }
+  
 
 unenrollCourse(enrolledCourse: any): void {
   this.modalCourse = enrolledCourse;
@@ -308,7 +316,9 @@ unenrollCourseConfirm(courseId: number): void {
     this.http.put<any>(apiUrl, body, { headers }).subscribe(
      () => {
         console.log('Unenrolled successfully');
+        this.messageService.add({key:'toast1',severity:'warn', summary:'Unenrolled', detail:'Unenrolled successfully!'});
         this.resetProgressPercentage(this.modalCourse.enrollmentId);
+        // this.fetchEnrolledCourses();
       },
       (error) => {
         console.error('Error unenrolling from course:', error);

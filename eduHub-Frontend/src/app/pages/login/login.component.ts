@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthenticationService } from '../../authentication.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { Injectable } from '@angular/core';
 import { error } from 'console';
 @Component({
@@ -20,7 +22,8 @@ import { error } from 'console';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone:true,
-  imports:[LoginSignupButtonsComponent,HeaderComponent,FooterComponent,HomeComponent,DashboardComponent,RegistrationFormComponent,HttpClientModule,CommonModule,ReactiveFormsModule,FontAwesomeModule]
+  imports:[LoginSignupButtonsComponent,HeaderComponent,FooterComponent,HomeComponent,DashboardComponent,RegistrationFormComponent,HttpClientModule,CommonModule,ReactiveFormsModule,FontAwesomeModule,ToastModule],
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
 
@@ -40,7 +43,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -105,7 +109,7 @@ export class LoginComponent implements OnInit {
         console.log("success",this.successMessage);
         setTimeout(() => {
           this.resetPasswordVisible = false;
-        }, 3000);
+        }, 4000);
         // Construct the payload with correct keys
         const resetPasswordPayload = {
           email: this.resetPasswordForm.get('resetEmail')?.value,
@@ -117,16 +121,21 @@ export class LoginComponent implements OnInit {
         this.http.post('http://localhost:8080/auth/reset-password', resetPasswordPayload, { responseType: 'text' }).subscribe(
           (response: any) => {
             console.log(response);
+            this.messageService.add({key:'toast1',severity:'success', summary: 'Success', detail: 'Password reset Successfully.'});
+            setTimeout(() => {
             this.formState = 'login';
+            },2000);
             // this.router.navigate(['/home']);
           },
           (error: any) => {
             console.error('Reset password failed:', error);
-            this.errorMessage = 'Failed to reset password. Please try again.';
+            this.messageService.add({key:'toast1',severity:'error', summary: 'Error', detail: 'Failed to reset password. Please try again.'});
+            // this.errorMessage = 'Failed to reset password. Please try again.';
           }
         );
       } else {
         this.errorMessage = 'Please fill out all required fields correctly and ensure passwords match.';
+        // this.messageService.add({severity:'error', summary: 'Error', detail: 'Server Error'});
       }
     }
   }
@@ -150,7 +159,10 @@ export class LoginComponent implements OnInit {
               this.authService.setToken(token);
               this.authService.setLoginStatus(true);
               this.authService.setUsername(response.username); // Assuming the response contains a 'username' field
+              this.messageService.add({key:'toast1',severity:'success', summary: 'Success', detail: 'Login Successful.'});
+              setTimeout(() => {
               this.router.navigate(['/home']);
+              },2000);
             } else {
               console.error('Login failed: Token not found in response');
               this.errorMessage = 'Invalid response from server.';

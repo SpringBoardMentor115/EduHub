@@ -5,13 +5,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AuthenticationService } from '../../authentication.service';
-
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [LoginComponent, CommonModule, FormsModule,RouterModule],
+  imports: [LoginComponent, CommonModule, FormsModule,RouterModule,ToastModule,ButtonModule],
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css']
+  styleUrls: ['./courses.component.css'],
+  providers: [MessageService]
 })
 export class CoursesComponent implements OnInit {
   categories: any[] = [];
@@ -25,7 +28,8 @@ export class CoursesComponent implements OnInit {
   coursecatelog: boolean = false;
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
-              public router:Router) { }
+              public router:Router,
+            private messageService:MessageService) { }
 
   ngOnInit(): void {
     this.fetchCategories();
@@ -33,6 +37,7 @@ export class CoursesComponent implements OnInit {
   toggleEnrollment(): void {
     this.showEnrollment = !this.showEnrollment;
   }
+
   // for enrollment of courses
 enrollCourse(courseId: number): void {
   const token = this.authService.getToken();
@@ -56,24 +61,37 @@ enrollCourse(courseId: number): void {
       (response) => {
         console.log('Enrolled successfully:', response);
         const responseBody = response.body as { message: string }; // Type assertion          
-        if (responseBody && responseBody.message === 'Enrolled Successfully') {
-          alert('Enrolled successfully!');
-        }  else {
-          alert('Enrolled successfully!');
+        if (responseBody && responseBody.message === 'Re-Enrolled Successfully') {
+          this.messageService.add({key:'toast1',severity:'success', summary:'Enrolled', detail:'Course Re-Enrolled successfully'});
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          },2000);
+          // alert('Enrolled successfully!');
+        } else if(responseBody && responseBody.message === 'Enrolled Successfully') {
+          this.messageService.add({key:'toast1',severity:'success', summary:'Enrolled', detail:'Course Enrolled successfully'});
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          },2000);
+          // alert('Enrolled successfully!');
         }
-        this.router.navigate(['/dashboard']);
       },
       (error) => {
         console.error('Error enrolling course:', error);
         if (error.status === 400) {
           if (error.error && error.error.message === 'User is already enrolled') {
-            alert('Course already enrolled ');
+            // alert('Course already enrolled ');
+            this.messageService.add({key:'toast1',severity:'warn', summary:'Already Enrolled', detail:'Course already enrolled'});
+            setTimeout(() => {
             this.router.navigate(['/dashboard']);
+            },2000);
           } else {
-            alert('Failed to enroll. Please try again.');
+            this.messageService.add({key:'toast1',severity:'error', summary:'Failed', detail:'Failed to enroll. Please try again!'});
+            // alert('Failed to enroll. Please try again.');
+
           }
         } else {
-          alert('An unexpected error occurred. Please try again later.');
+          this.messageService.add({key:'toast1',severity:'error', summary:'Failed', detail:'An unexpected error occurred. Please try again later.'});
+          // alert('An unexpected error occurred. Please try again later.');
         }
         console.error('Error headers:', error.headers);
         console.error('Error details:', error.error);

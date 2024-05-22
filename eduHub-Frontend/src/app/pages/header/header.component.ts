@@ -7,13 +7,15 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationService } from '../../authentication.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router,NavigationEnd } from '@angular/router';
-
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   standalone:true,
-  imports:[RouterOutlet,FontAwesomeModule,CommonModule,RouterModule,HttpClientModule],
+  imports:[RouterOutlet,FontAwesomeModule,CommonModule,RouterModule,HttpClientModule,ToastModule],
+  providers: [MessageService]
 })
 export class HeaderComponent {
 
@@ -24,7 +26,8 @@ export class HeaderComponent {
 
   constructor(  public authService: AuthenticationService,  
                 private http: HttpClient,
-                private router: Router
+                private router: Router,
+                private messageService: MessageService
 
   ) { }
 
@@ -43,7 +46,10 @@ logout(): void {
 logoutUser() {
   this.authService.logout();
   this.authService.setLoginStatus(false);
+  this.messageService.add({key:'toast1',severity:'success', summary: 'Success', detail: 'Logged out successfully'});
+  setTimeout(() => {
   this.router.navigate(['/login']);
+  },2000);
 }
 
 

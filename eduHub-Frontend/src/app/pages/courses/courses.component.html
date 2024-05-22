@@ -16,6 +16,7 @@
       </section>
     </div>
     <div class="col-md-10 courses-section">
+      <p-toast key="toast1"></p-toast>
       
       <!-- Courses section -->
       <section class="courses " *ngIf="!showEnrollment">
@@ -83,7 +84,7 @@
               </div>
               <div class="enroll-footer">
                 <div class="enroll-foot text-center">
-                  
+
                   <span *ngIf="authService.isLoggedIn()">
                     <button class="btn btn-primary" (click)="enrollCourse(selectedCourseId)">Enroll Course</button>
                   </span>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -10,6 +10,10 @@ import { LoginComponent } from '../login/login.component';
 import { LoginSignupButtonsComponent } from '../login-signup-buttons/login-signup-buttons.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PrimeNGConfig } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -18,29 +22,47 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./registration-form.component.css'],
   standalone:true,
   imports: [RouterOutlet, DashboardComponent, RegistrationFormComponent, LoginComponent, LoginSignupButtonsComponent,
-    HeaderComponent, FooterComponent, HomeComponent,CommonModule,ReactiveFormsModule,HttpClientModule
-] })
+    HeaderComponent, FooterComponent, HomeComponent,CommonModule,ReactiveFormsModule,HttpClientModule,ToastModule,ButtonModule],
+  providers: [MessageService]
+ })
 export class RegistrationFormComponent implements OnInit {
+
   registrationForm!: FormGroup;
   isFormChanged: boolean = false;
   passwordVisible: boolean = false;
 
 
-  constructor(private fb:FormBuilder,private router: Router,private http:HttpClient) { }
-
+  constructor(private fb:FormBuilder,
+              private router: Router,
+              private http:HttpClient,
+              private primengConfig: PrimeNGConfig,
+              private messageService: MessageService
+              // public messageService: MessageService
+            ) { }
+           
   ngOnInit(): void {
     this.initializeForm();
     this.subscribeToFormChanges();
-  }
+    this.primengConfig.ripple = true;
 
+  }
+   
+  alphanumericValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = /^[a-zA-Z0-9]*$/.test(control.value);
+      return valid ? null : { alphanumeric: true };
+    };
+  }
+  
   initializeForm(): void {
     this.registrationForm = this.fb.group({
-      userName: ['', Validators.required],
+      userName: ['', [Validators.required, this.alphanumericValidator()]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
   }
+  
 
   subscribeToFormChanges(): void {
     this.registrationForm.valueChanges.subscribe(() => {
@@ -69,6 +91,8 @@ export class RegistrationFormComponent implements OnInit {
     const confirmPassword = this.registrationForm.get('confirmPassword')?.value;
     return password === confirmPassword; // Use strict comparison (===)
   }
+ 
+
 
   registerUser() {
     if (this.registrationForm.valid && this.passwordsMatch()) {
@@ -79,10 +103,15 @@ export class RegistrationFormComponent implements OnInit {
       };
       this.http.post('http://localhost:8080/auth/signup', register,{responseType: 'text'}).subscribe((response: any) => {
         console.log(response);
+        this.messageService.add({key:'toast1', severity: 'success', summary: 'Registration Successful', detail: 'You have successfully registered. Please log in.' });
+        setTimeout(() => {
         this.router.navigate(['/login']);
+        },3000);
       });
     } else {
-      alert('Please fill out all required fields correctly and ensure passwords match.');
+      // alert('Please fill out all required fields correctly and ensure passwords match.');
+      this.messageService.add({key:'toast1',severity: 'warn', summary: 'Registraion Failed', detail: ' Server Error ' });
+
       console.error('Registration failed');
     }
   }

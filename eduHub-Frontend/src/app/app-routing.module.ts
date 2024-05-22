@@ -14,11 +14,11 @@ export const routes: Routes = [
   { path: 'registration-form', component: RegistrationFormComponent },
   { path: 'login', component: LoginComponent },
   // { path: 'courses/:categoryId', component: CoursesComponent },
-  {path: 'courses', component: CoursesComponent}
+  { path: 'courses', component: CoursesComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule,RouterModule],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
