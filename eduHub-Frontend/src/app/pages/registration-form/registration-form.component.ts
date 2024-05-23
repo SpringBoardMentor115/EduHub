@@ -15,54 +15,48 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
-
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.css'],
-  standalone:true,
+  standalone: true,
   imports: [RouterOutlet, DashboardComponent, RegistrationFormComponent, LoginComponent, LoginSignupButtonsComponent,
-    HeaderComponent, FooterComponent, HomeComponent,CommonModule,ReactiveFormsModule,HttpClientModule,ToastModule,ButtonModule],
+    HeaderComponent, FooterComponent, HomeComponent, CommonModule, ReactiveFormsModule, HttpClientModule, ToastModule, ButtonModule],
   providers: [MessageService]
- })
+})
 export class RegistrationFormComponent implements OnInit {
 
   registrationForm!: FormGroup;
   isFormChanged: boolean = false;
   passwordVisible: boolean = false;
 
-
-  constructor(private fb:FormBuilder,
+  constructor(private fb: FormBuilder,
               private router: Router,
-              private http:HttpClient,
+              private http: HttpClient,
               private primengConfig: PrimeNGConfig,
-              private messageService: MessageService
-              // public messageService: MessageService
-            ) { }
-           
+              private messageService: MessageService) { }
+
   ngOnInit(): void {
     this.initializeForm();
     this.subscribeToFormChanges();
     this.primengConfig.ripple = true;
-
   }
-   
+
   alphanumericValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const valid = /^[a-zA-Z0-9]*$/.test(control.value);
       return valid ? null : { alphanumeric: true };
     };
   }
-  
+
   initializeForm(): void {
     this.registrationForm = this.fb.group({
       userName: ['', [Validators.required, this.alphanumericValidator()]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
-  
 
   subscribeToFormChanges(): void {
     this.registrationForm.valueChanges.subscribe(() => {
@@ -89,32 +83,29 @@ export class RegistrationFormComponent implements OnInit {
   passwordsMatch(): boolean {
     const password = this.registrationForm.get('password')?.value;
     const confirmPassword = this.registrationForm.get('confirmPassword')?.value;
-    return password === confirmPassword; // Use strict comparison (===)
+    return password === confirmPassword;
   }
- 
-
 
   registerUser() {
     if (this.registrationForm.valid && this.passwordsMatch()) {
-      let register = {
+      const register = {
         userName: this.registrationForm.get('userName')?.value,
         email: this.registrationForm.get('email')?.value,
         password: this.registrationForm.get('password')?.value
       };
-      this.http.post('http://localhost:8080/auth/signup', register,{responseType: 'text'}).subscribe((response: any) => {
+      this.http.post('http://localhost:8080/auth/signup', register, {responseType: 'text'}).subscribe((response: any) => {
         console.log(response);
-        this.messageService.add({key:'toast1', severity: 'success', summary: 'Registration Successful', detail: 'You have successfully registered. Please log in.' });
+        this.messageService.add({key: 'toast1', severity: 'success', summary: 'Registration Successful', detail: 'You have successfully registered. Please log in.'});
         setTimeout(() => {
-        this.router.navigate(['/login']);
-        },3000);
+          this.router.navigate(['/login']);
+        }, 3000);
       });
     } else {
-      // alert('Please fill out all required fields correctly and ensure passwords match.');
-      this.messageService.add({key:'toast1',severity: 'warn', summary: 'Registraion Failed', detail: ' Server Error ' });
-
+      this.messageService.add({key: 'toast1', severity: 'warn', summary: 'Registration Failed', detail: 'Server Error'});
       console.error('Registration failed');
     }
   }
+
   navigateToSignup() {
     this.router.navigate(['/registration-form']);
   }
@@ -124,7 +115,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   toggleLogin() {
-    alert('Redirecting to login form')
+    alert('Redirecting to login form');
     this.router.navigate(['/login']);
   }
 

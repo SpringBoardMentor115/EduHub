@@ -4,6 +4,8 @@
       <div class="login-form">
         <div class="login-forms">
           <app-login-signup-buttons (login)="navigateToLogin()" (signup)="navigateToSignup()"></app-login-signup-buttons>
+          
+          <!-- Login Form -->
           <div *ngIf="formState === 'login'">
             <h1 class="text-center mb-4 mt-3">Login</h1>
             <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="shadow p-3 mb-3 bg-white rounded">
@@ -12,52 +14,75 @@
               </div>
               
               <div class="mb-3">
-                <label  for="email" class="form-label">Email</label>
-                <input  type="email" id="email" formControlName="email" class="form-control">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" formControlName="email" class="form-control">
+                <span *ngIf="email?.touched">
+                  <span *ngIf="email?.errors?.['required']" class="text-danger">Email is required</span>
+                  <span *ngIf="email?.errors?.['email'] && !email?.errors?.['required']" class="text-danger">Invalid email format</span>
+                </span>
               </div>
+              
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="password-input-group">
                   <input type="{{ passwordVisible ? 'text' : 'password' }}" id="password" formControlName="password" class="form-control">
                   <i class="password-toggle-icon fas" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
                 </div>
-                <span *ngIf="password?.invalid && password?.touched" class="text-danger">Password is required</span>
+                <span *ngIf="password?.touched">
+                  <span *ngIf="password?.errors?.['required']" class="text-danger">Password is required</span>
+                  <span *ngIf="password?.errors?.['minlength'] && !password?.errors?.['required']" class="text-danger">Password must be at least 8 characters long</span>
+                </span>
               </div>
+              
               <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
             </form>
           </div>
+
+          <!-- Reset Password Form -->
           <div *ngIf="formState === 'reset'">
             <h2 class="text-center mb-4 mt-3">Reset Password</h2>
             <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()" class="shadow p-3 mb-3 bg-white rounded">
               <div class="mb-3">
                 <label for="resetEmail" class="form-label">Email</label>
                 <input type="email" id="resetEmail" formControlName="resetEmail" class="form-control">
-                <span *ngIf="resetEmail?.invalid && resetEmail?.touched" class="text-danger">Email is required</span>
-                <span *ngIf="resetEmail?.invalid && resetEmail?.errors?.['email'] && resetEmail?.touched" class="text-danger">Invalid email format</span>
+                <span *ngIf="resetEmail?.touched">
+                  <span *ngIf="resetEmail?.errors?.['required']" class="text-danger">Email is required</span>
+                  <span *ngIf="resetEmail?.errors?.['email'] && !resetEmail?.errors?.['required']" class="text-danger">Invalid email format</span>
+                </span>
               </div>
+              
               <div class="mb-3">
                 <label for="newPassword" class="form-label">New Password</label>
                 <input type="password" id="newPassword" formControlName="newPassword" class="form-control">
-                <span *ngIf="newPassword?.invalid && newPassword?.touched" class="text-danger">New password is required</span>
+                <span *ngIf="newPassword?.touched">
+                  <span *ngIf="newPassword?.errors?.['required']" class="text-danger">New password is required</span>
+                  <span *ngIf="newPassword?.errors?.['minlength'] && !newPassword?.errors?.['required']" class="text-danger">New password must be at least 8 characters long</span>
+                </span>
               </div>
+              
               <div class="mb-3">
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                 <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
-                <span *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="text-danger">Confirm password is required</span>
-                <span *ngIf="!passwordsMatch() && confirmPassword?.touched" class="text-danger">Passwords must match</span>
+                <span *ngIf="confirmPassword?.touched">
+                  <span *ngIf="confirmPassword?.errors?.['required']" class="text-danger">Confirm password is required</span>
+                  <span *ngIf="confirmPassword?.errors?.['minlength'] && !confirmPassword?.errors?.['required']" class="text-danger">Confirm password must be at least 8 characters long</span>
+                  <span *ngIf="!passwordsMatch() && !confirmPassword?.errors?.['required'] && !confirmPassword?.errors?.['minlength']" class="text-danger">Passwords must match</span>
+                </span>
               </div>
+              
               <button type="submit" [disabled]="resetPasswordForm.invalid" class="btn btn-primary">Reset Password</button>
             </form>
           </div>
           
           <div class="text-right">
             <button type="button" class="btn btn-link" (click)="toggleFormState($event)">
-              {{ formState === 'login'? 'Forgot Password?' : 'Login Form' }}
+              {{ formState === 'login' ? 'Forgot Password?' : 'Login Form' }}
             </button>
           </div>
+          
           <div class="row justify-content-center">
             <div class="col text-center">
-              <p>If you don't have an account, click <button type="button" class="btn btn-link border-info"(click)="toggleLogin()">here</button> to Register.</p>
+              <p>If you don't have an account, click <button type="button" class="btn btn-link border-info" (click)="toggleLogin()">here</button> to Register.</p>
             </div>
           </div>
         </div>
@@ -65,4 +90,5 @@
     </div>
   </div>
 </div>
+
 <p-toast key="toast1"></p-toast>
