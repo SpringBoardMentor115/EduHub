@@ -28,7 +28,7 @@
   font-size: 1.7rem;
   color: var(--black);
   margin: 0 1rem;
-  padding-block: 1rem;
+  padding-block: 1rem; 
 }
 
 .header {
@@ -57,14 +57,19 @@
   text-decoration: none;
 }
 
-.navbar-nav {
-  display: flex;
-  align-items: center;
+.nav-item1 a {
+  padding:0 5rem;
+  /* background: red; */
+ 
 }
 
-.nav-item {
-  margin: 0 1rem;
-  padding:-10px 0;
+.nav-item1 a:hover {
+  color:blue;
+  border: 1px solid black;
+  border-radius: 1rem;
+  background: rgba(211, 211, 210, 0.493);
+  transition: background-color 1s ease-in-out;
+  animation: slidedown 5s ease-in-out;
 }
 
 .nav-link {
@@ -76,19 +81,22 @@
 .nav-item:hover {
   color: rgb(26, 5, 255);
   border: 1px double black;
-  border-radius: 1rem;
-  background: rgba(211, 211, 210, 0.702);
+  /* border-radius: 1rem; */
+  background: rgba(211, 211, 210, 0.493);
   transition: background-color 1s ease-in-out;
+  animation: slidedown 5s ease-in-out;
+}
+@keyframes slidedown {
+  0% {
+    border-bottom: 2px solid red;
+  }
+  100% {
+    border-bottom: 3px solid gold;
+  }
+  
 }
 
 
-.login {
-  position: absolute;
-  right: 0;
-  top: 0;
-  align-items: center;
-  margin:0.5rem 15rem 0 0;
-}
 
 .fa-user {
   margin-right: 0.5rem;
@@ -107,21 +115,15 @@
     margin: 0.5rem 1rem 0 0;
   }
   .navbar{
-    margin-right:-5%;
     justify-content: center;
     background: yellow;
   }
-  #navbarNav{
-    padding-left: 5rem;
-
-  
+ 
+  .navbar-nav li {
+    text-align: center;
+    margin: 0.5rem 0;
   }
-  .navbar-nav {
-    display: flex;
-    align-items: center;
-    margin-right: -5%;
-    padding-right: -5%;
-  }
+ 
 
 
 

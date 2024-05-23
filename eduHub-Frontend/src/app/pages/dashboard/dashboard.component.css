@@ -316,13 +316,14 @@ section{
    }
    .side-bar{
       padding:0;
+      min-height: auto;
       height: auto;
    }
    
    
 }
 .course-overview{
-   width: 100%;
+   /* width: 100%; */
    margin-top: 5vh;
    margin-bottom: 5vh;
    padding:10px;
@@ -589,7 +590,10 @@ section{
    .courses{
       margin: 0.5em;
    }
-
+.course-overview{
+   margin:0 1rem;
+   padding: 0.5rem;
+}
 }
 
 @media (max-width:450px){

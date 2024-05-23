@@ -1,7 +1,7 @@
 <header class="header" *ngIf="showHeader">
   <div class="logo-container">   
+    <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div class="container-fluid">
         <img src="../assets/logo.png" alt="EduHub Logo" id="logo"/>
         <a routerLink="/" class="logo">EduHub</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,33 +12,38 @@
           <ul class="navbar-nav ">
             <li class="nav-item">
               <a class="nav-link" routerLink="/home">Home</a>
+              
             </li>
             <li class="nav-item">
               
 
               <a class="nav-link" routerLink="/about">About</a>
+              
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/contact">Contact</a>
+              <a class="nav-link" routerLink="/contact">Contact </a>
+              
             </li>
             <li class="nav-item" >
-              <a class="nav-link" routerLink="/courses">Courses</a>
+              <a class="nav-link" routerLink="/courses">Courses </a>
+              
             </li>
             <li class="nav-item " *ngIf="authService.isLoggedIn()">
-              <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+              <a class="nav-link" routerLink="/dashboard">Dashboard </a>
+             
             </li>
           </ul>
-          <ul class="navbar-nav ml-auto mr-5">
-            <li class="nav-item bg-light" *ngIf="!authService.isLoggedIn()">
+          <ul class="navbar-nav ml-auto  ">
+            <li class="nav-item1 bg-light" *ngIf="!authService.isLoggedIn()">
               <a routerLink="/login"> <i class=" 	fas fa-user"></i> Login</a>
             </li>
-            <li class="nav-item bg-light" *ngIf="authService.isLoggedIn()">
+            <li class="nav-item1 bg-light" *ngIf="authService.isLoggedIn()">
               <a (click)="logoutUser()"><i class="fas fa-power-off"></i> Logout</a>
             </li>
           </ul>
           
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   </div>
 </header>

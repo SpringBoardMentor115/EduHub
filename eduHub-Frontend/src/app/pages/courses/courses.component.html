@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 col-sm-12">
       <!-- Category section -->
       <section class="home-grid  "  >
         <!-- <h1 class="text-center text-bg   form-control">Select category of courses</h1> -->
@@ -15,13 +15,13 @@
         </div>
       </section>
     </div>
-    <div class="col-md-10 courses-section">
+    <div class="col-md-10 col-sm-12 courses-section">
       <p-toast key="toast1"></p-toast>
       
       <!-- Courses section -->
       <section class="courses " *ngIf="!showEnrollment">
         <div class="table-container">
-          <section class="home" *ngIf="!coursecatelog">
+          <section class="home " *ngIf="!coursecatelog">
             <h1 class="text-center text-bg form-control">Welcome to  Course Catalog</h1>
             <p class="text-center">
               Course catalog offers a wide variety of courses to help you learn new skills and advance your career.
@@ -46,7 +46,7 @@
           <h1 class="heaing text-center bg-info text-bg text-light "> {{ selectedcategory }} </h1>
           <table class="table table-hover">
             <tbody>
-              <tr *ngFor="let course of courses">
+              <tr *ngFor="let course of courses" class="col-sm-12">
                 <td>{{ course.courseName }}</td>
                 <!-- Pass course ID to enrollCourse method -->
                 <td><button class="btn btn-primary info float-right" data-toggle="modal" data-target="#myModal" (click)="toggleCourseContent(course.courseId)">Enroll</button></td>
@@ -93,7 +93,9 @@
                   </span>
                 </div>
               </div>
-              <div class="btn btn-info" (click)="toggleEnrollment()">View Courses</div>            
+              
+
+              <div class="btn btn-info" (click)="toggleEnrollment()"><i class="fas fa-reply-all"></i> Go back</div>            
             </div>
           </div>
         </div>

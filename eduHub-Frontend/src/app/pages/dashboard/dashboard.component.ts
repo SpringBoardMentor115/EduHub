@@ -75,32 +75,33 @@ export class DashboardComponent implements OnInit {
   fetchEnrolledCourses(): void {
     const token = this.authService.getToken();
     if (!token) {
-      // console.error('No token available for enrolled courses');
-      return;
+        console.error('No token available for enrolled courses');
+        return;
     }
-
+  
     const apiUrl = 'http://localhost:8080/api/get-enrolled-courses';
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`
     });
-
+  
     this.http.get<any[]>(apiUrl, { headers }).subscribe(
-      (courses) => {
-        if (courses.length === 0) {
-          this.allenrollcourses = true;
-        } else {
-        this.enrolledCourses = courses;
-        courses.forEach(course => {
-          this.fetchProgress(course.enrollmentId);
-        });
-      }
-      },
-      (error) => {
-        console.error('Error fetching enrolled courses:', error);
-      }
+        (courses) => {
+            if (courses.length === 0) {
+                this.allenrollcourses = true;
+                console.log("No courses enrolled");
+            } else {
+                this.enrolledCourses = courses;
+                courses.forEach(course => {
+                    this.fetchProgress(course.enrollmentId);
+                    console.log("enrolled courses",this.enrolledCourses);
+                });
+            }
+        },
+        (error) => {
+            console.error('Error fetching enrolled courses:', error);
+        }
     );
   }
-
   fetchProgress(enrollmentId: number): void {
     const token = this.authService.getToken();
     if (!token) {
@@ -301,54 +302,66 @@ unenrollCourse(enrolledCourse: any): void {
   this.modalCourse = enrolledCourse;
 }
 unenrollCourseConfirm(courseId: number): void {
-      const token = this.authService.getToken();
-    if (!token) {
+  const token = this.authService.getToken();
+  if (!token) {
       console.error('No token available');
       return;
-    }
-    const apiUrl = `http://localhost:8080/api/unsubscribeCourse`;
-    const headers = new HttpHeaders({
+  }
+  const apiUrl = `http://localhost:8080/api/unsubscribeCourse`;
+  const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
-    });
-   const body = {
+  });
+  const body = {
       courseId: courseId
-    };
-    this.http.put<any>(apiUrl, body, { headers }).subscribe(
-     () => {
-        console.log('Unenrolled successfully');
-        this.messageService.add({key:'toast1',severity:'warn', summary:'Unenrolled', detail:'Unenrolled successfully!'});
-        this.resetProgressPercentage(this.modalCourse.enrollmentId);
-        // this.fetchEnrolledCourses();
+  };
+  this.http.put<any>(apiUrl, body, { headers }).subscribe(
+      () => {
+          console.log('Unenrolled successfully');
+          this.resetProgressPercentage(this.modalCourse.enrollmentId);
+          this.messageService.add({key:'toast1',severity:'warn', summary:'Unenrolled', detail:'Unenrolled successfully!'});
+          // Remove the unenrolled course from the enrolledCourses array
+          this.enrolledCourses = this.enrolledCourses.filter(course => course.course.courseId !== courseId);
+          // Check if there are no enrolled courses left
+          if (this.enrolledCourses.length === 0) {
+              this.allenrollcourses = true;
+          }
+          // Update the view
+          setTimeout(() => {
+              this.fetchEnrolledCourses();
+          },2000);
       },
       (error) => {
-        console.error('Error unenrolling from course:', error);
+          console.error('Error unenrolling from course:', error);
       }
-    );
-   }
-  resetProgressPercentage(enrollmentId: number): void {
-    const updatedPercentage = 0;
-    
-    const lastAccessed = null;
-    const apiUrl = `http://localhost:8080/trackprogress/updatePercentage`;
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
+  );
+}
+
+resetProgressPercentage(enrollmentId: number): void {
+  const updatedPercentage = 0;
+  const lastAccessed = null;
+  const apiUrl = `http://localhost:8080/trackprogress/updatePercentage`;
+  const token = this.authService.getToken();
+  const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
-    });
-    const body = {
+  });
+  const body = {
       enrollmentId: enrollmentId,
       progressPercentage: updatedPercentage,
-      lastAccessedDate: lastAccessed      };
-  
-    console.log("reset",body);
-  
-    this.http.put<any>(apiUrl, body, { headers }).subscribe(
+      lastAccessedDate: lastAccessed
+  };
+
+  console.log("reset", body);
+
+  this.http.put<any>(apiUrl, body, { headers }).subscribe(
       () => {
-        console.log('Reset course progress successfully');
-        this.fetchEnrolledCourses();
+          console.log('Reset course progress successfully');
+          
+          // this.fetchEnrolledCourses();  
       },
       (error) => {
-        console.error('Error reseting progress:', error);
+          console.error('Error resetting progress:', error);
       }
-    );
-  }
+  );
+}
+
 }

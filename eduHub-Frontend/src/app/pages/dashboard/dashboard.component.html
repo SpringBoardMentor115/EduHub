@@ -46,6 +46,9 @@
       <section class="courses" *ngIf="!showCourseOverviewSection">
 
         <h1 class="heading">Enrolled Courses</h1>
+        <span class="text-bg text-center" *ngIf="allenrollcourses">
+          <h4 class="font-weight-bold  ">Your learning journey awaits! Enroll in a course to get started.</h4>
+        </span>
         <div class="box-container">
           <div class="row box" *ngFor="let enrolledCourse of enrolledCourses">
             <div class="col-md-12">

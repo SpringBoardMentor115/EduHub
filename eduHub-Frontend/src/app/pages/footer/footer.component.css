@@ -39,7 +39,15 @@
     color: white;
     
 }
-
+.share a{
+  padding:0.5rem;
+  border:1px solid white;
+  border-radius: 10px;
+  width: 50px;
+    margin: 10px 10px;
+    font-size: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.334) inset;
+}
 @media screen and (max-width: 768px){
 
   .container-fluid {
