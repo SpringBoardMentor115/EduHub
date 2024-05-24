@@ -332,6 +332,8 @@ unenrollCourseConfirm(courseId: number): void {
       },
       (error) => {
           console.error('Error unenrolling from course:', error);
+          this.messageService.add({key:'toast1',severity:'error', summary:'Server Error', detail:'Error unenrolling from course!'});
+
       }
   );
 }
