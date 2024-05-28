@@ -99,10 +99,22 @@ export class RegistrationFormComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 3000);
+
+      },
+      (error) => {
+        if(error.status == 500) {
+          this.messageService.add({key: 'toast1', severity: 'warn', summary: 'Registration Failed', detail: 'User Already Registred'});
+          console.error('User Already Registred ');
+          setTimeout(() => {
+          this.registrationForm.reset();
+          },3000);
+
+        }
       });
     } else {
       this.messageService.add({key: 'toast1', severity: 'warn', summary: 'Registration Failed', detail: 'Server Error'});
       console.error('Registration failed');
+     
     }
   }
 

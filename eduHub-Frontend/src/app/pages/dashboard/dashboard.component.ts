@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   username: string | null = null;
   modalCourse: any;
   allenrollcourses:boolean = false;
+  showAchievementsSection: boolean = false;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -47,35 +48,10 @@ export class DashboardComponent implements OnInit {
             // console.log("name",this.username);
     }
   }
-  
-
-  toggleCourseContent(courseId: number): void {
-    if (this.showCourseOverviewSection && this.selectedCourse && this.selectedCourse.course.courseId === courseId) {
-      this.resetCourseOverview();
-    } else {
-      this.fetchCourseContent(courseId);
-      const course = this.enrolledCourses.find(course => course.course.courseId === courseId);
-      if (course) {
-        this.selectedCourse = course;
-        this.showCourseOverviewSection = true;
-        this.progressData = [];
-        this.fetchProgress(course.enrollmentId);
-      }
-    }
-  }
-
-  goBackToCourses(): void {
-    this.resetCourseOverview();
-  }
-
-  resetCourseOverview(): void {
-    this.selectedCourse = null;
-    this.showCourseOverviewSection = false; // Hide course overview section
-  }
   fetchEnrolledCourses(): void {
     const token = this.authService.getToken();
     if (!token) {
-        console.error('No token available for enrolled courses');
+        // console.error('No token available for enrolled courses');
         return;
     }
   
@@ -102,10 +78,10 @@ export class DashboardComponent implements OnInit {
         }
     );
   }
+
   fetchProgress(enrollmentId: number): void {
     const token = this.authService.getToken();
     if (!token) {
-      console.error('No token available');
       return;
     }
   
@@ -119,7 +95,8 @@ export class DashboardComponent implements OnInit {
         const course = this.enrolledCourses.find(course => course.enrollmentId === enrollmentId);
         if (course && progress) {
           course.progressPercentage = progress.progressPercentage;
-          this.progressData=[];
+          course.lastAccessedDate = progress.lastAccessedDate; // Store last accessed date
+          this.progressData = [];
           this.selectedCourse = course;
           this.progressData.push(progress);
           this.calculateContentStatus();
@@ -131,8 +108,33 @@ export class DashboardComponent implements OnInit {
     );
   }
   
-  
-
+  calculateTotalProgress(): number {
+    if (!this.selectedCourse.courseContent || this.selectedCourse.courseContent.length === 0) {
+      return 0;
+    }
+    const totalItems = this.selectedCourse.courseContent.length;
+    let readItems = 0;
+    for (const content of this.selectedCourse.courseContent) {
+      if (content.status === 'READ') {
+        readItems++;
+      }
+    }
+    return (readItems / totalItems) * 100;
+  }
+  toggleCourseContent(courseId: number): void {
+    if (this.showCourseOverviewSection && this.selectedCourse && this.selectedCourse.course.courseId === courseId) {
+      this.resetCourseOverview();
+    } else {
+      this.fetchCourseContent(courseId);
+      const course = this.enrolledCourses.find(course => course.course.courseId === courseId);
+      if (course) {
+        this.selectedCourse = course;
+        this.showCourseOverviewSection = true;
+        this.progressData = [];
+        this.fetchProgress(course.enrollmentId);
+      }
+    }
+  }
   viewCourseDetails(course: any): void {
     this.selectedCourse = course;
 
@@ -145,6 +147,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+ 
+  
+  
+
+  
   createProgressEntry(enrollmentId: number): void {
     const token = this.authService.getToken();
     if (!token) {
@@ -174,7 +182,7 @@ export class DashboardComponent implements OnInit {
   
     this.http.post<any>(apiUrl, requestBody, { headers }).subscribe(
       (response) => {
-        this.messageService.add({key:'toast1',severity:'Info', summary:'Hurray', detail:'Started Learning the course'});
+        this.messageService.add({key:'toast1',severity:'success', summary:'Hurray', detail:'Started Learning the course'});
         console.log('Progress entry created successfully:', response);
       },
       (error) => {
@@ -217,7 +225,14 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  goBackToCourses(): void {
+    this.resetCourseOverview();
+  }
 
+  resetCourseOverview(): void {
+    this.selectedCourse = null;
+    this.showCourseOverviewSection = false; // Hide course overview section
+  }
   showCourseOverview(course: any): void {
     this.selectedCourse = course;
   }
@@ -279,25 +294,25 @@ export class DashboardComponent implements OnInit {
   }
   
   
-  
-  
-  
-
-  calculateTotalProgress(): number {
-    if (!this.selectedCourse.courseContent || this.selectedCourse.courseContent.length === 0) {
-      return 0;
-    }
-    const totalItems = this.selectedCourse.courseContent.length;
-    let readItems = 0;
-    for (const content of this.selectedCourse.courseContent) {
-      if (content.status === 'READ') {
-        readItems++;
-      }
-    }
-    return (readItems / totalItems) * 100;
+  getAchievedCourses(): any[] {
+    return this.enrolledCourses.filter(course => course.progressPercentage === 100);
+  }
+  showAchievements(event: Event): void {
+    event.preventDefault(); // Prevent default anchor behavior
+    this.showCourseOverviewSection = false;
+    this.showAchievementsSection = true;
   }
   
 
+
+  
+  checkUnenrollProgress(enrolledCourse: any): void {
+    if (enrolledCourse.progressPercentage > 25) {
+      console.log('Unenroll is not possible above 25% progress.');
+    } else {
+      this.unenrollCourse(enrolledCourse);
+    }
+  }
 unenrollCourse(enrolledCourse: any): void {
   this.modalCourse = enrolledCourse;
 }
@@ -333,7 +348,6 @@ unenrollCourseConfirm(courseId: number): void {
       (error) => {
           console.error('Error unenrolling from course:', error);
           this.messageService.add({key:'toast1',severity:'error', summary:'Server Error', detail:'Error unenrolling from course!'});
-
       }
   );
 }

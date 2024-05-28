@@ -10,36 +10,15 @@
           
         </div>
         <nav class="navbar navbar-expand-lg navbar-light flex-column">
-          <a href="/dashboard" class="navbar-brand"><i class="fas fa-home"></i><span>Home</span></a>
+          <a href="/home" class="navbar-brand"><i class="fas fa-home"></i><span>Home</span></a>
           <a href="/courses" class="navbar-brand"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+          <a href="#" class="navbar-brand" (click)="showAchievements($event)"><i class="fas fa-trophy"></i><span>Achievements</span></a>
         </nav>
       </div>
     </div>
 
     <!-- <div [ngClass]="{'col-md-10': isSidebarVisible , 'col-md-12': !isSidebarVisible}"> -->
     <div class="col-md-10">
-
-      <!-- <header class="header">
-
-        <section class="flex">
-          <a href="/dashboard" class="logo">EduHub</a>
-          <div class="icons">
-            <div id="menu-btn" class="fas fa-star"></div>
-            <div id="user-btn" class="fas fa-user"></div>
-            <div id="search-btn" class="fas fa-search"></div>
-            <div id="toggle-btn" class="fas fa-sun"></div>
-            <a href="javascript:void(0);" (click)="toggleSidebar()">
-              <div id="toggle-btn" class="fas fa-bars"></div>
-            </a>
-          </div>
-          <div class="profile">
-            <img src="../../../assets/home.jpg" class="image" alt="profile">
-            <h3 class="name"></h3>
-            <p class="role"></p>
-            <a href="profile.html" class="btn">View Profile</a>
-          </div>
-        </section>
-      </header> -->
       <p-toast key="toast1"></p-toast>
       <p-toast key="toast2"></p-toast>
       <!-- Header and course list -->
@@ -55,14 +34,25 @@
               <div class="card-body">
                 <ul class="list-group list-group-horizontal">
                   <li>
-                    <h2 class="card-title title">{{ enrolledCourse.course.courseName }}</h2>
+                    <h2 class="card-title title">{{ enrolledCourse.course.courseName }}  <i class='far fa-check-circle' *ngIf="enrolledCourse.progressPercentage === 100"></i></h2>
+                    
                   </li>
                   <li class="ml-auto m-3">
-                    <button class="btn btn-primary btn-block p-2 font-weight-bold" (click)="toggleCourseContent(enrolledCourse.courseId);viewCourseDetails(enrolledCourse)">View Details</button>
+                    <button id="viewdetails" class="btn btn-primary btn-block p-2 font-weight-bold" (click)="toggleCourseContent(enrolledCourse.courseId);viewCourseDetails(enrolledCourse)">View Details</button>
                   </li>
                   <li class="mr-4">
                     <!-- <button class="btn btn-danger p-2 font-weight-bold" (click)="unenrollCourse(enrolledCourse.courseId)">Yes</button> -->
-                    <button type="button" class="btn btn-danger p-2 font-weight-bold"  data-toggle="modal" data-target="#myModal" (click)="unenrollCourse(enrolledCourse)">UnEnroll</button>
+                    <button 
+                    type="button" 
+                    id="unenroll"
+                    class="btn btn-danger p-2 font-weight-bold"  
+                    data-toggle="modal" 
+                    data-target="#myModal" 
+                    [disabled]="enrolledCourse.progressPercentage > 25"
+                    (click)="checkUnenrollProgress(enrolledCourse)">
+                    Unenroll
+                  </button>
+
 
 
                   </li>
@@ -154,6 +144,21 @@
 
           
           
+      </section>
+      <section class="achievements" *ngIf="showAchievementsSection">
+          <h1 class="heading">Achievements</h1>
+          <div class="box-container1">
+            <div class="row box1" *ngFor="let achievedCourse of getAchievedCourses()">
+              <div class="col-md-12">
+                <div class="card-body1">
+                  <h2 class="card-title title">{{ achievedCourse.course.courseName }}</h2>
+                  <p class="text-success">Congratulations! You have completed this course.</p>
+                  <p>Completed By: {{ achievedCourse.lastAccessedDate | date: 'longDate' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        
       </section>
 
       
