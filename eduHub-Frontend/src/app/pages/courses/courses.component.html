@@ -1,106 +1,106 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-2 col-sm-12">
-      <!-- Category section -->
-      <section class="home-grid  "  >
-        <!-- <h1 class="text-center text-bg   form-control">Select category of courses</h1> -->
-        <div class="category-dropdown dropdown ">
-          <input type="text" class="dropdown-toggle " data-toggle="dropdown" placeholder="Search Category" [(ngModel)]="searchTerm" (input)="filterCategories()">
-          <i class="fas fa-income"></i>
-          <ul class="dropdown-menu category-list ">
-            <li *ngFor="let category of filteredCategories" (click)="toggleCategory(category)">
-              {{ category[1] }}
-            </li>
-          </ul>
-        </div>
-      </section>
-    </div>
-    <div class="col-md-10 col-sm-12 courses-section">
-      <p-toast key="toast1"></p-toast>
-      
-      <!-- Courses section -->
-      <section class="courses " *ngIf="!showEnrollment">
-        <div class="table-container">
-          <section class="home " *ngIf="!coursecatelog">
-            <h1 class="text-center text-bg form-control">Welcome to  Course Catalog</h1>
-            <p class="text-center">
-              Course catalog offers a wide variety of courses to help you learn new skills and advance your career.
-              From programming to business to design, we have something for everyone.
-            </p>
-            <p class="text-center">
-              To get started, simply select a category from the dropdown menu on the left and browse the available courses.
-              When you find a course you're interested in, click the "Enroll" button to get started.
-            </p>
-            <p >
-              Here are the steps to enroll in a course:
-            </p>
-            <ol >
-              <li>Select a category from the dropdown menu</li>
-              <li>Browse the available courses</li>
-              <li>Click the "Enroll" button for the course you want to take</li>
-              <li>Confirm your enrollment in the enrollment modal</li>
-              <li>Start learning!</li>
-            </ol>
-            <!-- <button class="btn btn-primary" >View Courses</button> -->
-          </section>
-          <h1 class="heaing text-center bg-info text-bg text-light "> {{ selectedcategory }} </h1>
-          <table class="table table-hover">
-            <tbody>
-              <tr *ngFor="let course of courses" class="col-sm-12">
-                <td>{{ course.courseName }}</td>
-                <!-- Pass course ID to enrollCourse method -->
-                <td><button class="btn btn-primary info float-right" data-toggle="modal" data-target="#myModal" (click)="toggleCourseContent(course.courseId)">Enroll</button></td>
-              </tr></tbody>
-          </table>
-        </div>
-      </section>
-      <!-- Enrollment section -->
-      <section class="enrollsection" id="enrollsection" *ngIf="showEnrollment">
-        <div class="enrollModal" id="enrollModal" tabindex="-1" role="dialog" aria-labelledby="enrollModalLabel" aria-hidden="true">
-          <div class="enrollmodal-dialog modal-dialog-centered" role="document">
-            <div class="enrollmodal-content">
-              <div class="enrollmodal-header bg-primary text-white">
-                <h2 class="enrollmodal-title" id="enrollModalLabel">Course Enrollment</h2>
-              </div>
-              <div class="modal-body">
-                <div *ngFor="let course of courses">
-                  <div class="coursecontent" *ngIf="course.showContent">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Title</th>
-                          <th>Description</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let content of courseContent">
-                          <td>{{ content.contentTitle }}</td>
-                          <td>{{ content.contentDescription }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2 col-md-12 col-sm-12 responsivecol-md-2">
+        <!-- Category section -->
+        <section class="home-grid  "  >
+          <!-- <h1 class="text-center text-bg   form-control">Select category of courses</h1> -->
+          <div class="category-dropdown dropdown ">
+            <input type="text" class="dropdown-toggle " data-toggle="dropdown" placeholder="Search Category" [(ngModel)]="searchTerm" (input)="filterCategories()">
+            <i class="fas fa-income"></i>
+            <ul class="dropdown-menu category-list ">
+              <li *ngFor="let category of filteredCategories" (click)="toggleCategory(category)">
+                {{ category[1] }}
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+      <div class="col-lg-10 col-md-12 col-sm-12 courses-section">
+        <p-toast key="toast1"></p-toast>
+        
+        <!-- Courses section -->
+        <section class="courses " *ngIf="!showEnrollment">
+          <div class="table-container">
+            <section class="home " *ngIf="!coursecatelog">
+              <h1 class="text-center text-bg form-control">Welcome to  Course Catalog</h1>
+              <p class="text-center">
+                Course catalog offers a wide variety of courses to help you learn new skills and advance your career.
+                From programming to business to design, we have something for everyone.
+              </p>
+              <p class="text-center">
+                To get started, simply select a category from the dropdown menu on the left and browse the available courses.
+                When you find a course you're interested in, click the "Enroll" button to get started.
+              </p>
+              <p >
+                Here are the steps to enroll in a course:
+              </p>
+              <ol >
+                <li>Select a category from the dropdown menu</li>
+                <li>Browse the available courses</li>
+                <li>Click the "Enroll" button for the course you want to take</li>
+                <li>Confirm your enrollment in the enrollment modal</li>
+                <li>Start learning!</li>
+              </ol>
+              <!-- <button class="btn btn-primary" >View Courses</button> -->
+            </section>
+            <h1 class="heaing text-center bg-info text-bg text-light "> {{ selectedcategory }} </h1>
+            <table class="table table-hover">
+              <tbody>
+                <tr *ngFor="let course of courses" class="col-sm-12">
+                  <td>{{ course.courseName }}</td>
+                  <!-- Pass course ID to enrollCourse method -->
+                  <td><button class="btn btn-primary info float-right" data-toggle="modal" data-target="#myModal" (click)="toggleCourseContent(course.courseId)">Enroll</button></td>
+                </tr></tbody>
+            </table>
+          </div>
+        </section>
+        <!-- Enrollment section -->
+        <section class="enrollsection" id="enrollsection" *ngIf="showEnrollment">
+          <div class="enrollModal" id="enrollModal" tabindex="-1" role="dialog" aria-labelledby="enrollModalLabel" aria-hidden="true">
+            <div class="enrollmodal-dialog modal-dialog-centered" role="document">
+              <div class="enrollmodal-content">
+                <div class="enrollmodal-header bg-primary text-white">
+                  <h2 class="enrollmodal-title" id="enrollModalLabel">Course Enrollment</h2>
+                </div>
+                <div class="modal-body">
+                  <div *ngFor="let course of courses">
+                    <div class="coursecontent" *ngIf="course.showContent">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let content of courseContent">
+                            <td>{{ content.contentTitle }}</td>
+                            <td>{{ content.contentDescription }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="enroll-footer">
-                <div class="enroll-foot text-center">
+                <div class="enroll-footer">
+                  <div class="enroll-foot text-center">
 
-                  <span *ngIf="authService.isLoggedIn()">
-                    <button class="btn btn-primary" (click)="enrollCourse(selectedCourseId)">Enroll Course</button>
-                  </span>
-                  <span *ngIf="!authService.isLoggedIn()">
-                    <a class="btn btn-info" routerLink="/login">Login</a>
-                  </span>
+                    <span *ngIf="authService.isLoggedIn()">
+                      <button class="btn btn-primary" (click)="enrollCourse(selectedCourseId)">Enroll Course</button>
+                    </span>
+                    <span *ngIf="!authService.isLoggedIn()">
+                      <a class="btn btn-info" routerLink="/login">Login</a>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              
+                
 
-              <div class="btn btn-info" (click)="toggleEnrollment()"><i class="fas fa-reply-all"></i> Go back</div>            
+                <div class="btn btn-info" (click)="toggleEnrollment()"><i class="fas fa-reply-all"></i> Go back</div>            
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      
+        </section>
+        
+      </div>
     </div>
   </div>
-</div>

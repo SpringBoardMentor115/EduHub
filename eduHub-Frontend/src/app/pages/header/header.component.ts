@@ -35,7 +35,12 @@ export class HeaderComponent {
    
 
 }
-
+closeNavbar(): void {
+  const navbarCollapse = document.getElementById('navbarNav');
+  if (navbarCollapse) {
+    navbarCollapse.classList.remove('show');
+  }
+}
 navigateToCourses(categoryId: number): void {
   this.router.navigate(['/courses', categoryId]); // Navigate to CoursesComponent with categoryId
 }

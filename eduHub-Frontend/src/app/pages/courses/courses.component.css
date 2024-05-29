@@ -1,38 +1,40 @@
-*{
-    box-sizing: border-box;
+/* Global styles */
+* {
+  box-sizing: border-box;
 }
-.container{
-    min-height: 100vh;
-    min-width: 100vw;
-    align-items: center;
-    position: relative;
-    /* background-image: url(/assets/courses.png); */
-    background-size: cover;
-    background-position: center;
+
+.container {
+  min-height: 100vh;
+  min-width: 100vw;
+  align-items: center;
+  position: relative;
+  /* background-image: url(/assets/courses.png); */
+  background-size: cover;
+  background-position: center;
 }
-.col-md-2{
+
+/* Column and section styles */
+.responsivecol-md-2 {
   width: 250px;
   min-height: 100vh;
-    background-color: #0057b3e4;
-    color: #fff;
-    padding: 20px;
-    align-items: center;
-    
-
+  background-color: #0057b3e4;
+  color: #fff;
+  padding: 20px;
+  align-items: center;
 }
 
-/* for categories */
 .home-grid {
   padding: 0 1rem;
   align-items: center;
-  margin-top: 20px; /* Adjust top margin as needed */
+  margin-top: 20px;
 }
+
 .category-dropdown {
   position: relative;
   border-radius: 10px;
   box-shadow: 0 0 30px 3px solid aquamarine;
   padding: 0.2rem;
-  z-index: 999; 
+  z-index: 999;
 }
 
 .dropdown-menu {
@@ -44,116 +46,112 @@
   position: absolute;
   background-color: #fffefe;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 999; /* Ensure the dropdown is above other content */
+  z-index: 999;
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-  
-  .dropdown-toggle {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      outline: none;
-      transition: border-color 0.3s ease;
-      width: 100%;
-   
-  }
-  
-  .dropdown-toggle:focus {
-    border-color: #007bff;
-  }
-  
+.dropdown-toggle {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
 
-  
-  .category-list li {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 2px solid blanchedalmond;
-    border-left: 5px solid black;
-    transition: background-color 1s ease-in;
-  }
-  
-  .category-list li:hover {
-    background-color: #e2dede;
-    transition: background-color 1s ease-in;
-    animation:scroll 0.5s ease-in;
-    
-  }
+.dropdown-toggle:focus {
+  border-color: #007bff;
+}
+
+.category-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 2px solid blanchedalmond;
+  border-left: 5px solid black;
+  transition: background-color 1s ease-in;
+}
+
+.category-list li:hover {
+  background-color: #e2dede;
+  transition: background-color 1s ease-in;
+  animation: scroll 0.5s ease-in;
+}
+
 @keyframes scroll {
-  from{
+  from {
     opacity: 0.5;
     transform: translateX(10px);
   }
-  to{
+  to {
     opacity: 1;
     transform: translateX(0);
   }
-  
-}  
-  .dropdown.focus .dropdown-menu {
-    animation: slideDown 0.3s ease;
-    display: block;
-  }
-  
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-      background: wheat;
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+}
 
-  
-  section.home{
-  /* display: flex; */
+.dropdown.focus .dropdown-menu {
+  animation: slideDown 0.3s ease;
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    background: wheat;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section.home {
   width: 60vw;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
   background: rgba(245, 222, 179, 0.629);
 }
-/* for courses */
-.table-container{
-  padding:1rem;
-  border:1px solid black;
+
+.table-container {
+  padding: 1rem;
+  border: 1px solid black;
   border-radius: 10px;
   background: ghostwhite;
-
 }
 
-.table-container .home h1{
+.table-container .home h1 {
   padding: 0.5rem;
   font-size: 1.5rem;
   border-radius: 10px;
   font-weight: bold;
 }
-.table-container .home p{
+
+.table-container .home p {
   text-align: center;
   margin: 0.5rem;
   padding: 0.5rem;
   font-size: 1.2rem;
   font-weight: 600;
 }
-.table-container .home ol li{
+
+.table-container .home ol li {
   font-size: 1.2rem;
   font-weight: 550;
-
 }
-.table-container .table tbody tr td{
+
+.table-container .table tbody tr td {
   animation: slideDown 0.9s ease;
-
 }
-.table-container .table tbody tr:hover{
-  scale:1.01;
 
+.table-container .table tbody tr:hover {
+  scale: 1.01;
 }
-.courses,.enrollsection{
+
+.courses,
+.enrollsection {
   justify-content: center;
   border-radius: 10px;
   align-items: center;
@@ -161,14 +159,14 @@
   display: flex;
 }
 
-.enrollmodal-content{
-  margin:0.5rem;
-  padding:0.5rem;
+.enrollmodal-content {
+  margin: 0.5rem;
+  padding: 0.5rem;
   background: ghostwhite;
-  border:1px solid black;
+  border: 1px solid black;
   border-radius: 10px;
-
 }
+
 .enrollmodal-header {
   border-bottom: 1px solid #dee2e6;
   background-color: gray;
@@ -192,16 +190,13 @@
   align-items: center;
 }
 
-
-
-
 /* Styling for the table */
 table {
   background-color: whitesmoke;
-  border:1px solid black;
+  border: 1px solid black;
   border-collapse: collapse;
-  width:50vw;
-  border-radius:10px ;
+  width: 50vw;
+  border-radius: 10px;
 }
 
 /* Styling for table rows */
@@ -218,7 +213,6 @@ table td {
 
 /* Styling for the enroll button */
 .btn-primary {
-  /* width: 5vw; */
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -230,20 +224,36 @@ table td {
 .btn-primary:hover {
   background-color: #0056b3;
 }
-  @media screen and (max-width:768px){
-  
-    .dropdown-toggle {
-        width: 90vw;
-      }
-    .col-md-2{
-      width: 100%;
-      min-height: 20vh;
-    }
-    .table{
-      padding:1rem;
-      width: 85vw;
-    }
-    section.home{
-      width: 90vw;
-    }
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+  .dropdown-toggle {
+    width: 90vw;
   }
+  .responsivecol-md-2{
+    width: 100%;
+    min-height: 20vh;
+  }
+  .table {
+    padding: 1rem;
+    width: 85vw;
+  }
+  section.home {
+    width: 90vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .responsivecol-md-2 {
+height: 100%;
+    width: 100%;
+    min-height: 20vh;
+  }
+  .table {
+    padding: 1rem;
+    width: 85vw;
+  }
+  section.home {
+    width: 90vw;
+  }
+}

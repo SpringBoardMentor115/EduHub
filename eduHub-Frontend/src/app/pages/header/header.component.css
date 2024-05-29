@@ -76,6 +76,7 @@
   color: #333;
   text-decoration: none;
   transition: color 0.3s ease-out;
+  text-align: center;
 }
 
 .nav-item:hover {
@@ -123,9 +124,73 @@
     text-align: center;
     margin: 0.5rem 0;
   }
- 
-
-
-
-
 }
+@media (max-width: 1200px) {
+  .header .logo {
+    font-size: 2rem;
+  }
+
+  .header .navbar a {
+    font-size: 1.5rem;
+  }
+
+  .container-fluid img {
+    margin-left: 5%;
+  }
+  
+  .container-fluid {
+    margin-right: 2rem;
+  }
+
+  .nav-item1 a {
+    padding: 0 2rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+  .header .logo {
+    font-size: 1.8rem;
+  }
+
+  .header .navbar a {
+    font-size: 1.4rem;
+  }
+
+  .container-fluid img {
+    margin-left: 2%;
+  }
+
+  .container-fluid {
+    margin-right: 1rem;
+  }
+
+  .nav-item1 a {
+    padding: 0 1.5rem;
+  }
+}
+.logo-wrapper {
+  flex-grow: 1; /* Take up remaining space */
+  text-align: center; /* Center the logo */
+}
+@media (max-width: 768px) {
+ 
+  .header .logo {
+    font-size: 1.8rem;
+  }
+
+  .header .navbar a {
+    font-size: 1.4rem;
+  }
+
+  .container-fluid img {
+    margin-left: 2%;
+  }
+
+  .container-fluid {
+    margin-right: 1rem;
+  }
+
+  .nav-item1 a {
+    padding: 0 1.5rem;
+  }
+}
+
