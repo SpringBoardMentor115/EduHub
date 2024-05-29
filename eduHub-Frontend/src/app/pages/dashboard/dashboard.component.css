@@ -246,7 +246,7 @@ body {
 }
 
 /* Media query for screens smaller than 450px */
-@media (max-width: 450px) {
+@media (max-width: 768px) {
    html {
       font-size: 50%;
    }
@@ -266,7 +266,8 @@ body {
 
    /* Adjust sidebar height */
    #sidebar {
-      max-height: 20vh;
+      min-height: 20vh;
+     height: auto;
    }
 }
  
