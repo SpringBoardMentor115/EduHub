@@ -1,13 +1,14 @@
 .login-form {
-  margin-top: -17.5vh;
-  background-color: #fff;
+  margin-top: 12vh;
+  background-color: rgba(255, 255, 255, 0.6); /* 60% opacity */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(100px);
   padding: 20px;
+  
 }
 .blur-background {
-  background-image: url('/assets/bg_background.png');
+  background-image: url('/assets/login.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -82,63 +83,4 @@
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .register-form, .login-form {
-    margin-top: 8vh;
-    padding: 15px;
-  }
-
-  .login-forms h1, .login-forms h2, .registration-form h1 {
-    font-size: 1.5rem;
-  }
-
-  .btn-primary {
-    font-size: 0.9rem;
-  }
-}
-.login-forms h1, .login-forms h2, .registration-form h1 {
-  font-size: 2rem;
-}
-
-@media (max-width: 576px) {
-  .register-form, .login-form {
-    margin-top: 10vh;
-    padding: 10px;
-  }
-
-  .login-forms h1, .login-forms h2, .registration-form h1 {
-    font-size: 1.2rem;
-  }
-
-  .btn-primary {
-    font-size: 0.8rem;
-  }
-}
-@media (min-width: 768px) and (max-width: 1200px) {
-  .register-form, .login-form {
-    margin-top: 8vh;
-    padding: 20px;
-  }
-
-  .login-forms h1, .login-forms h2, .registration-form h1 {
-    font-size: 1.75rem;
-  }
-
-  .btn-primary {
-    font-size: 0.9rem;
-  }
-
-  .form-control {
-    font-size: 0.9rem;
-  }
-
-  .text-danger {
-    font-size: 0.85em;
-  }
-
-  .btn-link {
-    font-size: 0.9rem;
-  }
 }

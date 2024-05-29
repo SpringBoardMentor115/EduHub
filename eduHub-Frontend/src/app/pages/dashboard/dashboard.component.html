@@ -1,13 +1,10 @@
 <div class="dashboard-container">
   <div class="row">
-    <!-- <div class="col-md-2" [ngClass]="{'d-none': !isSidebarVisible, 'd-md-block': isSidebarVisible}" id="sidebar"> -->
-      <div class="col-md-2 fixed-width-column" id="sidebar">
+    <div class="col-md-2 fixed-width-column" id="sidebar">
       <div class="side-bar">
         <div class="profile">
           <img src="../../../assets/profile.png" class="img-fluid rounded-circle" alt="">
           <h3 class="name">{{ username }}</h3>
-
-          
         </div>
         <nav class="navbar navbar-expand-lg navbar-light flex-column">
           <a href="/home" class="navbar-brand"><i class="fas fa-home"></i><span>Home</span></a>
@@ -17,150 +14,112 @@
       </div>
     </div>
 
-    <!-- <div [ngClass]="{'col-md-10': isSidebarVisible , 'col-md-12': !isSidebarVisible}"> -->
     <div class="col-md-10">
       <p-toast key="toast1"></p-toast>
       <p-toast key="toast2"></p-toast>
+
       <!-- Header and course list -->
       <section class="courses" *ngIf="!showCourseOverviewSection">
-
         <h1 class="heading">Enrolled Courses</h1>
         <span class="text-bg text-center" *ngIf="allenrollcourses">
-          <h4 class="font-weight-bold  ">Your learning journey awaits! Enroll in a course to get started.</h4>
+          <h4 class="font-weight-bold">Your learning journey awaits! Enroll in a
+course to get started.</h4>
         </span>
         <div class="box-container">
           <div class="row box" *ngFor="let enrolledCourse of enrolledCourses">
-            <div class="col-md-12">
+            <div class="col-md-12 course-item">
               <div class="card-body">
                 <ul class="list-group list-group-horizontal">
-                  <li>
-                    <h2 class="card-title title">{{ enrolledCourse.course.courseName }}  <i class='far fa-check-circle' *ngIf="enrolledCourse.progressPercentage === 100"></i></h2>
-                    
+                  <li class="course-title">
+                    <h2 class="card-title title">{{ enrolledCourse.course.courseName }} <i class='far fa-check-circle' *ngIf="enrolledCourse.progressPercentage === 100"></i></h2>
                   </li>
-                  <li class="ml-auto m-3">
-                    <button id="viewdetails" class="btn btn-primary btn-block p-2 font-weight-bold" (click)="toggleCourseContent(enrolledCourse.courseId);viewCourseDetails(enrolledCourse)">View Details</button>
-                  </li>
-                  <li class="mr-4">
-                    <!-- <button class="btn btn-danger p-2 font-weight-bold" (click)="unenrollCourse(enrolledCourse.courseId)">Yes</button> -->
-                    <button 
-                    type="button" 
-                    id="unenroll"
-                    class="btn btn-danger p-2 font-weight-bold"  
-                    data-toggle="modal" 
-                    data-target="#myModal" 
-                    [disabled]="enrolledCourse.progressPercentage > 25"
-                    (click)="checkUnenrollProgress(enrolledCourse)">
-                    Unenroll
-                  </button>
-
-
-
+                  <li class="ml-auto m-3 course-actions">
+                    <button id="viewdetails" class="btn btn-primary" (click)="toggleCourseContent(enrolledCourse.courseId);viewCourseDetails(enrolledCourse)">View Details</button>
+                    <button id="unenroll" class="btn btn-danger" data-toggle="modal" data-target="#myModal" [disabled]="enrolledCourse.progressPercentage > 25" (click)="checkUnenrollProgress(enrolledCourse)">Unenroll</button>
                   </li>
                 </ul>
               </div>
             </div>
-            
-   
-            <div class="modal fade" id="myModal" #myModal *ngIf="modalCourse">
-              <!-- Modal content -->
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title">Unenroll course</h4>
-                  </div>
-                  <div class="modal-body">
-                    <h2 class="font-weight-bold text-success text-bg">{{ modalCourse.course.courseName }}</h2>
-                    <b class="text-danger">Do you want to unenroll from this course?</b>
-                    <br>
-                    <b>No longer access this course</b>
-                    <br>
-                    <b>Click on Yes to continue</b>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-danger p-2 font-weight-bold" style="transition-delay: 5s;" (click)="unenrollCourseConfirm(modalCourse.courseId)" data-dismiss="modal"> Yes</button>
-                    
-                    <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">No</button>
-                    <!-- <button type="button" class="btn btn-secondary"  data-dismiss="modal" style="transition-delay: 10s;">
-                      <a href="" class="text-bg bg-success" (click)="unenrollCourseConfirm(modalCourse.courseId)" style="transition-delay: 5s;"> confirm</a>
-                    </button> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-                       
           </div>
         </div>
       </section>
 
-
-      <section *ngIf="showCourseOverviewSection ; selectedCourse" class="course-overview">
-          <h1 class="text-center">Course overview</h1>
-          <h2>{{ selectedCourse.course.courseName }}</h2>
-          <!-- <div class="progress">
-            <div class="progress-bar" role="progressbar" [style.width]="calculateTotalProgress() + '%'">
-              {{ calculateTotalProgress() }}%
-            </div>
-          </div> -->
-          <div *ngFor="let progress of progressData">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" [style.width]="progress.progressPercentage + '%'">
-                {{ progress.progressPercentage }}%
-              </div>
+      <section *ngIf="showCourseOverviewSection && selectedCourse" class="course-overview">
+        <h1 class="text-center">Course overview</h1>
+        <h2>{{ selectedCourse.course.courseName }}</h2>
+        <div *ngFor="let progress of progressData">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width]="progress.progressPercentage + '%'">
+              {{ progress.progressPercentage }}%
             </div>
           </div>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-6 col-lg-4" *ngFor="let content of selectedCourse.courseContent; let i = index">
-                <div class="card mb-4 shadow-sm animate-card card-equal-height">
-                  <div class="custom-card-body">
-                    <h3 class="card-title text-center module-title">Module {{ i + 1 }}</h3>
-                    <p class="card-text">
-                      <b>Title: </b>{{ content.contentTitle }} <br>
-                      <b>Description: </b>{{ content.contentDescription }} <br>
-                      <b>Content URL: </b><a [href]="content.contentURL" target="_blank">{{ content.contentURL }}</a> <br>
-                    </p>
-                    <button [ngClass]="content.status === 'READ' ? 'btn btn-danger' : 'btn btn-success'"
-                            (click)="toggleContentStatus(content, i)"
-                            [disabled]="content.status === 'READ' && i > 0 && selectedCourse.courseContent[i - 1].status !== 'READ'">
-                      Mark as {{ content.status === 'READ' ? 'Unread' : 'Read' }}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
-          
-          
-          
-          
-          
-          <div class="back">
-            <button class="btn btn-info p-2 font-weight-bold" (click)="goBackToCourses()"><i class="fas fa-reply-all"></i> Go back</button>
-            <button class="btn btn-success p-2 font-weight-bold float-right" *ngFor="let progress of progressData">Last Accessed: {{ progress.lastAccessedDate | date }}</button>
-          </div>
-
-          
-          
-      </section>
-      <section class="achievements" *ngIf="showAchievementsSection">
-          <h1 class="heading">Achievements</h1>
-          <div class="box-container1">
-            <div class="row box1" *ngFor="let achievedCourse of getAchievedCourses()">
-              <div class="col-md-12">
-                <div class="card-body1">
-                  <h2 class="card-title title">{{ achievedCourse.course.courseName }}</h2>
-                  <p class="text-success">Congratulations! You have completed this course.</p>
-                  <p>Completed By: {{ achievedCourse.lastAccessedDate | date: 'longDate' }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
         
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-4" *ngFor="let content of selectedCourse.courseContent; let i = index">
+              <div class="card mb-4 shadow-sm animate-card card-equal-height">
+                <div class="custom-card-body">
+                  <h3 class="card-title text-center module-title">Module {{ i + 1 }}</h3>
+                  <p class="card-text">
+                    <b>Title: </b>{{ content.contentTitle }} <br>
+                    <b>Description: </b>{{ content.contentDescription }} <br>
+                    <b>Content URL: </b><a [href]="content.contentURL" target="_blank">{{ content.contentURL }}</a> <br>
+                  </p>
+                  <button [ngClass]="content.status === 'READ' ? 'btn btn-danger' : 'btn btn-success'"
+                          (click)="toggleContentStatus(content, i)"
+                          [disabled]="content.status === 'READ' && i > 0 && selectedCourse.courseContent[i - 1].status !== 'READ'">
+                    Mark as {{ content.status === 'READ' ? 'Unread' : 'Read' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="back">
+          <button class="btn btn-info p-2 font-weight-bold" (click)="goBackToCourses()"><i class="fas fa-reply-all"></i> Go back</button>
+          <button class="btn btn-success p-2 font-weight-bold float-right" *ngFor="let progress of progressData">Last Accessed: {{ progress.lastAccessedDate | date }}</button>
+        </div>
       </section>
 
-      
+      <section class="achievements" *ngIf="showAchievementsSection">
+        <h1 class="heading">Achievements</h1>
+        <div class="box-container1">
+          <div class="row box1" *ngFor="let achievedCourse of getAchievedCourses()">
+            <div class="col-md-12">
+              <div class="card-body1">
+                <h2 class="card-title title">{{ achievedCourse.course.courseName }}</h2>
+                <p class="text-success">Congratulations! You have completed this course.</p>
+                <p>Completed By: {{ achievedCourse.lastAccessedDate | date: 'longDate' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" #myModal *ngIf="modalCourse">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Unenroll course</h4>
+      </div>
+      <div class="modal-body">
+        <h2 class="font-weight-bold text-success text-bg">{{ modalCourse.course.courseName }}</h2>
+        <b class="text-danger">Do you want to unenroll from this course?</b>
+        <br>
+        <b>No longer access this course</b>
+        <br>
+        <b>Click on Yes to continue</b>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger p-2 font-weight-bold" style="transition-delay: 5s;" (click)="unenrollCourseConfirm(modalCourse.courseId)" data-dismiss="modal"> Yes</button>
+        <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">No</button>
+      </div>
+    </div>
   </div>
 </div>

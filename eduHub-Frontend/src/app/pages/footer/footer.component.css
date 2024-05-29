@@ -1,57 +1,61 @@
-*{
-  margin:0;
+* {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.footer{
-    background-color: rgba(24, 24, 87, 0.808);
-    color: white;
-    text-align: center;
-    padding: 10px;
-    /* position: fixed; */
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 100;
-}
-.container-fluid .row{
-    display: flex;
-    justify-content: space-around;
 
-  }
-  .container-fluid{
-  padding: 1rem 10%;
+.footer {
+  background-color: rgba(37, 62, 126, 0.24);
+  color: white;
+  text-align: center;
+  padding: 5px; /* Reduced padding */
+  /* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
 
+.container-fluid .row {
+  display: flex;
+  justify-content: space-around;
 }
-.box h3{
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: rgb(255, 217, 0); 
+
+.container-fluid {
+  padding: 0.5rem 10%; /* Reduced vertical padding */
 }
-.box p{
+
+.box h3 {
+  font-size: 1.2rem; /* Reduced font size */
+  font-weight: bold;
+  color: rgb(13, 13, 9);
+}
+
+.box p {
   margin-top: -0.5rem;
-    font-size: 1.2rem;
-    color: white;
-    line-height: 2;
+  font-size: 1rem; /* Reduced font size */
+  color: white;
+  line-height: 2;
 }
-.credit{
-    font-size: 1.5rem;
-    color: white;
-    
+
+.credit {
+  font-size: 1.2rem; /* Reduced font size */
+  color: white;
 }
-.share a{
-  padding:0.5rem;
-  border:1px solid white;
+
+.share a {
+  padding: 0.5rem;
+  border: 1px solid white;
   border-radius: 10px;
   width: 50px;
-    margin: 10px 10px;
-    font-size: 1.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.334) inset;
+  margin: 10px 10px;
+  font-size: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.334) inset;
 }
-@media screen and (max-width: 768px){
 
+@media screen and (max-width: 768px) {
   .container-fluid {
-    padding: 1rem 5%;
+    padding: 0.5rem 5%; /* Reduced vertical padding */
   }
   .box h3 {
     font-size: 1.2rem;
@@ -64,12 +68,11 @@
   }
 }
 
-@media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
   .container-fluid {
-    padding: 1rem 2%;
+    padding: 0.5rem 2%; /* Reduced vertical padding */
   }
 
-    
   .col-sm-5 {
     flex: 0 0 50%;
     max-width: 50%;
@@ -83,7 +86,4 @@
   .credit {
     font-size: 1rem;
   }
-  
 }
-
-  

@@ -4,40 +4,39 @@
   box-sizing: border-box;
 }
 
-#loginButton.active, #signupButton.active {
-  background-color: rgb(7, 65, 255); 
-  color: white; 
+#loginButton.active,
+#signupButton.active {
+  background-color: rgb(7, 65, 255);
+  color: white;
 }
 
 .btn-primary {
-  margin-top:-3px;
-  color: rgb(7, 7, 7); 
+  margin-top: -3px;
+  color: rgb(7, 7, 7);
   font-size: 1.3rem;
   font-weight: bold;
   height: 2.5rem;
   border: none;
-  border-bottom-left-radius:1rem ;
-  border-bottom-right-radius:1.25rem ;
-  width: 50%; 
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1.25rem;
+  width: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  background: gainsboro;
+  background: #f0f0f0; /* Changed button background color */
 }
 
 .btn-primary:hover {
-  background-color: #35d435c2; 
+  background-color: #35d435c2;
   transform: scale(1.1);
   transition: all 0.75s ease;
 }
 
 .container {
-  margin: 0;
+  margin: 0 auto; /* Center container horizontally */
   padding: 0;
-  
 }
 
 .loginandsignup {
-  margin: -1.1rem -3rem 0 -3rem;
   justify-content: center;
   display: flex;
 }

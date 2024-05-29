@@ -1,15 +1,16 @@
 .blur-background {
-  background-image: url('/assets/bg_background.png');
+  background-image: url('/assets/Designer.png');
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(10px);
-  height: 100vh;
+  height: 130vh;
   /* display: flex; */
   justify-content: center;
   /* align-items: center; */
 }
 
 .register-form {
+  margin-top:12vh;
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
@@ -46,62 +47,4 @@
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-}
-.login-forms h1, .login-forms h2, .registration-form h1 {
-  font-size: 2rem;
-}
-@media (max-width: 768px) {
-  .register-form, .login-form {
-    margin-top: 8vh;
-    padding: 15px;
-  }
-
-  .login-forms h1, .login-forms h2, .registration-form h1 {
-    font-size: 1.5rem;
-  }
-
-  .btn-primary {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .register-form, .login-form {
-    margin-top: 10vh;
-    padding: 10px;
-  }
-
-  .login-forms h1, .login-forms h2, .registration-form h1 {
-    font-size: 1.2rem;
-  }
-
-  .btn-primary {
-    font-size: 0.8rem;
-  }
-}
-@media (min-width: 768px) and (max-width: 1200px) {
-  .register-form, .login-form {
-    margin-top: 8vh;
-    padding: 20px;
-  }
-
-  .login-forms h1, .login-forms h2, .registration-form h1 {
-    font-size: 1.75rem;
-  }
-
-  .btn-primary {
-    font-size: 0.9rem;
-  }
-
-  .form-control {
-    font-size: 0.9rem;
-  }
-
-  .text-danger {
-    font-size: 0.85em;
-  }
-
-  .btn-link {
-    font-size: 0.9rem;
-  }
 }

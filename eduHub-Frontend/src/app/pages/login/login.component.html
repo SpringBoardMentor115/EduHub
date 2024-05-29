@@ -1,6 +1,6 @@
 <div class="container-fluid blur-background">
-  <div class="row justify-content-center align-items-center min-vh-100">
-    <div class="col-lg-4 col-md-6 col-sm-8 col-11">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
       <div class="login-form">
         <div class="login-forms">
           <app-login-signup-buttons (login)="navigateToLogin()" (signup)="navigateToSignup()"></app-login-signup-buttons>
@@ -70,19 +70,19 @@
                 </span>
               </div>
               
-              <button type="submit" [disabled]="resetPasswordForm.invalid" class="btn btn-primary ">Reset Password</button>
+              <button type="submit" [disabled]="resetPasswordForm.invalid" class="btn btn-primary">Reset Password</button>
             </form>
           </div>
           
           <div class="text-right">
-            <button type="button" class="btn btn-link p-0" (click)="toggleFormState($event)">
+            <button type="button" class="btn btn-link" (click)="toggleFormState($event)">
               {{ formState === 'login' ? 'Forgot Password?' : 'Login Form' }}
             </button>
           </div>
           
           <div class="row justify-content-center">
             <div class="col text-center">
-              <p>If you don't have an account, click <button type="button" class="btn btn-link border-info p-0" (click)="toggleLogin()">here</button> to Register.</p>
+              <p>If you don't have an account, click <button type="button" class="btn btn-link border-info" (click)="toggleLogin()">here</button> to Register.</p>
             </div>
           </div>
         </div>

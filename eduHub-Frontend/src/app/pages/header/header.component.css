@@ -1,196 +1,88 @@
 .container-fluid img {
   margin-left: 10%;
   object-fit: cover;
-
 }
 
-.container-fluid{
+.container-fluid {
   margin-right: 4rem;
   display: flex;
   justify-content: space-between;
-
-}
-
-.header .logo {
-  font-size: 2.5rem;
-  font-weight: bolder;
-  color: var(--black);
-}
-
-.header .logo i {
-  color: var(--primary-color);
-  padding-right: .5rem;
-}
-
-.header .navbar a {
-  font-size: 1.7rem;
-  color: var(--black);
-  margin: 0 1rem;
-  padding-block: 1rem; 
 }
 
 .header {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-out;
-}
-
-.header.nav-scrolled {
-  transform: translateY(-50px);
+  padding: 0.5rem 1rem;
+  height: 60px; /* Reduced header height */
 }
 
 .logo-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 100%;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 1.5rem; /* Smaller font size */
   color: #333;
   text-decoration: none;
+  margin-right: auto; /* Shift logo to the right */
 }
 
-.nav-item1 a {
-  padding:0 5rem;
- 
+.navbar-toggler {
+  display: none;
 }
 
-.nav-item1 a:hover {
-  color:blue;
-  border: 1px solid black;
-  border-radius: 1rem;
-  background: rgba(211, 211, 210, 0.493);
-  transition: background-color 1s ease-in-out;
-  animation: slidedown 5s ease-in-out;
+.navbar-nav .nav-item {
+  margin: 0 0.5rem; /* Reduce margin between items */
 }
 
 .nav-link {
   color: #333;
   text-decoration: none;
+  font-size: 1rem; /* Smaller font size */
   transition: color 0.3s ease-out;
-  text-align: center;
 }
 
-.nav-item:hover {
-  color: rgb(26, 5, 255);
-  border: 1px double black;
-  /* border-radius: 1rem; */
-  background: rgba(211, 211, 210, 0.493);
-  transition: background-color 1s ease-in-out;
-  animation: slidedown 5s ease-in-out;
-}
-@keyframes slidedown {
-  0% {
-    border-bottom: 2px solid red;
-  }
-  100% {
-    border-bottom: 3px solid gold;
-  }
-  
+.nav-link:hover {
+  color: blue;
 }
 
-
-
-.fa-user {
-  margin-right: 0.5rem;
-} 
-
-@media (max-width: 768px) {
-  .header .logo {
-    font-size: 2rem;
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: block;
   }
 
-  .header .navbar a {
-    font-size: 1.5rem;
+  .navbar-collapse {
+    display: none;
+    position: absolute;
+    top: 60px; /* Adjust according to header height */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 1000;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .login {
-    margin: 0.5rem 1rem 0 0;
+  .navbar-nav {
+    flex-direction: column;
+    padding: 1rem 0;
   }
-  .navbar{
-    justify-content: center;
-    background: yellow;
+
+  .navbar-nav .nav-item {
+    margin: 0; /* Reset margin */
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #ccc;
   }
- 
-  .navbar-nav li {
-    text-align: center;
-    margin: 0.5rem 0;
+
+  .navbar-collapse.show {
+    display: block;
   }
 }
-@media (max-width: 1200px) {
-  .header .logo {
-    font-size: 2rem;
-  }
-
-  .header .navbar a {
-    font-size: 1.5rem;
-  }
-
-  .container-fluid img {
-    margin-left: 5%;
-  }
-  
-  .container-fluid {
-    margin-right: 2rem;
-  }
-
-  .nav-item1 a {
-    padding: 0 2rem;
-  }
-}
-@media (min-width: 768px) and (max-width: 1200px) {
-  .header .logo {
-    font-size: 1.8rem;
-  }
-
-  .header .navbar a {
-    font-size: 1.4rem;
-  }
-
-  .container-fluid img {
-    margin-left: 2%;
-  }
-
-  .container-fluid {
-    margin-right: 1rem;
-  }
-
-  .nav-item1 a {
-    padding: 0 1.5rem;
-  }
-}
-.logo-wrapper {
-  /* flex-grow: 1; Take up remaining space */
-  text-align: center; /* Center the logo */
-}
-@media (max-width: 768px) {
- 
-  .header .logo {
-    font-size: 1.8rem;
-  }
-
-  .header .navbar a {
-    font-size: 1.4rem;
-  }
-  .logo-wrapper {
-    flex-grow: 1; 
-    text-align: center; /* Center the logo */
-  }
-  .container-fluid img {
-    margin-left: 2%;
-  }
-
-  .container-fluid {
-    margin-right: 1rem;
-  }
-
-  .nav-item1 a {
-    padding: 0 1.5rem;
-  }
-}
-
