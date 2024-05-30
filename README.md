@@ -1,5 +1,5 @@
 # EduHub
-![EduHub Screenshot](https://drive.google.com/uc?id=wkFrvi_BZyLUNt5wGAGydOkicNGj5Lfa)
+
 EduHub is an e-learning platform designed to provide users with a seamless online education experience. It is built using Angular for the front end and Spring Boot for the back end.
 
 ## Features
