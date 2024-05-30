@@ -5,39 +5,39 @@ body {
    margin: 0;
    padding: 0;
 }
- 
+
 .dashboard-container {
    display: flex;
    flex-wrap: wrap;
 }
- 
+
 .row {
    display: flex;
    flex-wrap: wrap;
    width: 100%;
 }
- 
+
 .col-md-2,
 .col-md-10 {
    padding: 15px;
 }
- 
+
 /* Sidebar styling */
 #sidebar {
    background-color: #1f2833;
    color: #c5c6c7;
    min-height: 100vh;
 }
- 
+
 .side-bar {
    padding: 20px;
 }
- 
+
 .side-bar .profile {
    text-align: center;
    margin-bottom: 20px;
 }
- 
+
 .side-bar .profile img {
    width: 100px;
    height: 100px;
@@ -46,17 +46,17 @@ body {
    border-radius: 50%;
    border: 2px solid #66fcf1;
 }
- 
+
 .side-bar .profile .name {
    font-size: 1.2em;
    margin: 0;
 }
- 
+
 .navbar {
    display: flex;
    flex-direction: column;
 }
- 
+
 .navbar-brand {
    color: #c5c6c7;
    font-size: 1em;
@@ -64,48 +64,48 @@ body {
    text-align: left;
    transition: color 0.3s ease;
 }
- 
+
 .navbar-brand i {
    margin-right: 10px;
 }
- 
+
 .navbar-brand:hover {
    color: #66fcf1;
 }
- 
+
 /* Main content styling */
 .col-md-10 {
    background-color: #fff;
    border-left: 1px solid #ddd;
    flex: 1;
 }
- 
+
 .courses,
 .course-overview,
 .achievements {
    padding: 15px;
 }
- 
+
 .heading {
    font-size: 1.8em;
    margin-bottom: 15px;
    text-align: center;
    color: #0b0c10;
 }
- 
+
 .text-bg {
    background-color: #d6d9dc;
    padding: 8px;
    border-radius: 5px;
    color: #0b0c10;
 }
- 
+
 .course-list {
    display: flex;
    flex-direction: column;
    gap: 10px;
 }
- 
+
 .course-item {
    background-color: #fff;
    border-radius: 12px;
@@ -116,22 +116,22 @@ body {
    align-items: center;
    transition: transform 0.3s, box-shadow 0.3s;
 }
- 
+
 .course-item:hover {
    transform: translateY(-3px);
    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
- 
+
 .course-title {
    font-size: 1.1em;
    color: #0b0c10;
 }
- 
+
 .course-actions {
    display: flex;
    gap: 8px;
 }
- 
+
 .btn {
    padding: 6px 12px; /* Smaller button size */
    border-radius: 3px;
@@ -141,12 +141,12 @@ body {
    color: #0b0c10; /* Button text color */
    border: 1px solid transparent; /* Button border */
 }
- 
+
 .btn-primary {
    background-color: #45a29e;
    border: 1px solid transparent; /* Button border */
 }
- 
+
 .btn-primary:hover {
    transform: translateY(-2px);
 }
@@ -155,7 +155,7 @@ body {
    background-color: #c5c6c7;
    border: 1px solid transparent; /* Button border */
 }
- 
+
 /* Course overview styling */
 .course-overview .progress {
    height: 8px; /* Smaller height */
@@ -164,36 +164,36 @@ body {
    overflow: hidden;
    margin-bottom: 8px;
 }
- 
+
 .course-overview .progress-bar {
    background-color: #45a29e;
    height: 100%;
    border-radius: 10px; /* More rounded corners */
 }
- 
+
 .course-overview .card {
    border: none;
    border-radius: 12px;
    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
    transition: transform 0.3s, box-shadow 0.3s;
 }
- 
+
 .course-overview .card:hover {
    transform: translateY(-3px);
    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
- 
+
 .course-overview .custom-card-body {
    padding: 15px;
    background-color: #f8f9fa;
    border-radius: 12px;
 }
- 
+
 .course-overview .module-title {
    font-size: 1em;
    margin-bottom: 8px;
 }
- 
+
 .last-accessed {
    font-size: 0.9em;
    text-align: right;
@@ -208,44 +208,50 @@ body {
    justify-content: flex-start;
    align-items: center;
 }
- 
+
 .back .btn {
    padding: 5px 10px;
    font-size: 0.8em;
    background-color: #fff; /* Button background color */
    color: #0b0c10; /* Button text color */
 }
- 
+
 /* Modal styling */
 .modal-content {
    border-radius: 12px;
 }
- 
+
 .modal-header,
 .modal-body,
 .modal-footer {
    padding: 15px;
 }
- 
+
 .modal-title {
    font-size: 1.3em;
    font-weight: bold;
 }
- 
+
 /* Achievements section styling */
+.achievements {
+   background-color: #f8f9fa;
+   padding: 40px 0;
+   text-align: center;
+}
+
 .achievements .card-body1 {
    background-color: #fff;
    padding: 10px;
    border-radius: 12px;
    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
- 
+
 .achievements .card-title {
    font-size: 1.3em;
    color: #0b0c10;
 }
 
-/* Media query for screens smaller than 450px */
+/* Media query for screens smaller than 768px */
 @media (max-width: 768px) {
    html {
       font-size: 50%;
@@ -267,31 +273,68 @@ body {
    /* Adjust sidebar height */
    #sidebar {
       min-height: 20vh;
-     height: auto;
+      height: auto;
+   }
+
+   /* Center courses and achievements sections */
+   .col-md-10 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+   }
+
+   .courses, .achievements {
+      width: 95%;
+      max-width: 500px;
+      padding: 15px;
+      align-self: center;
+   }
+
+   .course-item {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+   }
+
+   .course-title {
+      flex: 1;
+   }
+
+   .course-actions {
+      display: flex;
+      gap: 4px;
+      justify-content: flex-end;
+   }
+
+   .btn {
+      padding: 4px 8px; /* Smaller button size */
+      font-size: 0.8em; /* Smaller font size */
    }
 }
- 
+
 /* Additional styles for the achievements section */
 .achievements {
    background-color: #f8f9fa;
    padding: 40px 0;
    text-align: center;
 }
- 
+
 .heading {
    font-size: 2.5rem;
    font-weight: bold;
    color: #343a40;
    margin-bottom: 30px;
 }
- 
+
 .box-container1 {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
    grid-gap: 20px;
    padding: 0 20px;
 }
- 
+
 .card-body1 {
    background: whitesmoke;
    border-radius: 1vh;
@@ -305,22 +348,22 @@ body {
    padding: 20px;
    transition: transform 0.2s ease-in-out;
 }
- 
+
 .box1:hover {
    transform: translateY(-5px);
 }
- 
+
 .card-title {
    font-size: 1.5rem;
    color: #007bff;
    margin-bottom: 15px;
 }
- 
+
 .text-success {
    font-weight: bold;
    color: #28a745;
 }
- 
+
 /* Optional: Add a background image to the achievements section */
 .achievements::before {
    content: "";
